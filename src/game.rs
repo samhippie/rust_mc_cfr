@@ -17,6 +17,8 @@ pub trait Game: fmt::Display {
     fn get_turn(&self) -> (Player, Vec<Self::Action>);
 
     /// The given player does the given action for their turn
+    /// # Panics
+    /// This may panic if the player cannot move or the action is invalid
     fn take_turn(&mut self, player: Player, action: &Self::Action);
 
     /// Returns None if the game is not over
