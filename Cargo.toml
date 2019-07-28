@@ -1,5 +1,5 @@
 [package]
-name = "rust-mc-cfr"
+name = "rust_mc_cfr"
 version = "0.1.0"
 authors = ["sam <samhggnbthm@gmail.com>"]
 edition = "2018"

@@ -74,7 +74,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-mc-cfr"
+name = "rust_mc_cfr"
 version = "0.1.0"
 dependencies = [
  "rand 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
