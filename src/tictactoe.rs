@@ -1,4 +1,4 @@
-//TODO it would be nice to make the fact that an action is a u32 an implementation detail
+//TODO it would be nice to make the fact that an action is a usize an implementation detail
 //and the same for board being an array of player options
 
 use std::fmt::{Display, Formatter};
@@ -27,13 +27,14 @@ impl TicTacToe {
 
 impl game::Game for TicTacToe {
 
-    type Action = u32;
+    type Action = usize;
 
-    fn get_turn(&self) -> (Player, Vec<u32>) {
+    fn get_turn(&self) -> (Player, Vec<usize>) {
+        //empty spaces
         let spaces = self.board.iter().enumerate()
             .filter_map(|(ind, space)| {
                 match space {
-                    None => Some(ind as u32),
+                    None => Some(ind as usize),
                     _ => None,
                 }
             })
@@ -42,16 +43,16 @@ impl game::Game for TicTacToe {
         (self.turn, spaces)
     }
 
-    fn take_turn(&mut self, player: Player, action: &u32) {
+    fn take_turn(&mut self, player: Player, action: &usize) {
         if player != self.turn {
             panic!("Given player doesn't match saved player");
         }
 
-        if self.board[*action as usize].is_some() {
+        if self.board[*action].is_some() {
             panic!("Tried to overwrite non-empty space");
         }
         
-        self.board[*action as usize] = Some(player);
+        self.board[*action] = Some(player);
         self.turn = match player {
             Player::P1 => Player::P2,
             Player::P2 => Player::P1,
@@ -66,9 +67,11 @@ impl game::Game for TicTacToe {
                 Some(Player::P1) => Some(1.0),
                 Some(Player::P2) => Some(-1.0),
                 None => {
+                    //empty space means game isn't over
                     if self.board.iter().any(|space| space.is_none()) {
                         None
                     } else {
+                        //no empty space and no winner means tie
                         Some(0.0)
                     }
                 }
