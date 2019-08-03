@@ -21,20 +21,21 @@ impl CounterFactualRegret {
         }
     }
 
-    pub fn search<T>(&mut self, mut game: T) -> f64
+    pub fn search<T>(&mut self, mut game: T) -> Option<f64>
         where T: Game + Clone
     {
         let (player, actions) = game.get_turn();
         let infoset = game.get_infoset(player);
         if player == self.on_player {
             //normally I like to get probs first, but recursing first seems interesting
-            let rewards: Vec<f64> = actions.iter().map(|action| {
+            let rewards: Option<Vec<f64>> = actions.iter().map(|action| {
                 let subgame = game.clone();
                 game.take_turn(player, action);
                 self.search(subgame)
             }).collect();
+            let rewards = rewards?;
 
-            let probs = self.regret_match(player, &infoset, actions.len());
+            let probs = self.regret_match(player, &infoset, actions.len())?;
             let expected_value: f64 = probs.iter().zip(rewards.iter())
                 .map(|(p, r)| p * r)
                 .sum();
@@ -43,12 +44,12 @@ impl CounterFactualRegret {
             self.regret_handler.send_delta(player, infoset.hash, regrets)
                 .expect("Failed to send regret delta");
 
-            expected_value
+            Some(expected_value)
 
         } else {
             //TODO are we supposed to sample from here? or from the average strategy?
             //let probs = self.get_avg_strategy(player, &infoset, actions.len());
-            let probs = self.regret_match(player, &infoset, actions.len());
+            let probs = self.regret_match(player, &infoset, actions.len())?;
             //TODO save probs to average strategy
             let sampler = rand::distributions::WeightedIndex::new(probs).unwrap();
             let action_index = sampler.sample(&mut self.rng);
@@ -64,12 +65,15 @@ impl CounterFactualRegret {
         unimplemented!();
     }
 
-    fn regret_match(&self, player: Player, infoset: &Infoset, num_actions: usize) -> Vec<f64>
+    fn regret_match(&self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
     {
         let regret_response = self.regret_handler.get_regret(player, infoset.hash)
             .expect("Failed to get regret");
 
-        let regrets = regret_response.regret;
+        let regrets = match regret_response {
+            regret::Response::Regret(regret_response) => regret_response.regret,
+            regret::Response::Closed => return None
+        };
 
         let pos_regrets: Vec<f64> = regrets.iter().map(|&regret| {
             if regret > 0.0 {
@@ -85,11 +89,11 @@ impl CounterFactualRegret {
             let probs = pos_regrets.into_iter().map(|regret| {
                 regret / regret_sum
             }).collect();
-            probs
+            Some(probs)
         } else {
             let num = num_actions as f64;
             let probs = vec![1.0 / num; num_actions];
-            probs
+            Some(probs)
         }
     }
 

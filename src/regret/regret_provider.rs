@@ -20,18 +20,27 @@ pub struct RegretDelta {
 }
 
 pub enum Request {
+    ///A request to get the request for a particular state
     Regret(RegretRequest),
+    ///A request to add regret
     Delta(RegretDelta),
+    ///Closes the provider
+    Close,
+}
+
+pub enum Response {
+    Regret(RegretResponse),
+    Closed,
 }
 
 pub struct RegretHandler {
     pub requester: mpsc::Sender<Request>,
-    pub receiver: mpsc::Receiver<RegretResponse>,
+    pub receiver: mpsc::Receiver<Response>,
     pub handler: usize,
 }
 
 impl RegretHandler {
-    pub fn get_regret(&self, player: Player, infoset_hash: u64) -> Result<RegretResponse, Box<error::Error>> {
+    pub fn get_regret(&self, player: Player, infoset_hash: u64) -> Result<Response, Box<error::Error>> {
         self.requester.send(Request::Regret(RegretRequest {
             player, 
             infoset_hash,
@@ -47,10 +56,6 @@ impl RegretHandler {
             infoset_hash,
             regret_delta,
         }))
-    }
-
-    pub fn recv(&self) -> Result<RegretResponse, mpsc::RecvError> {
-        self.receiver.recv()
     }
 }
 

@@ -11,7 +11,9 @@ pub struct HashRegretProvider {
     request_sender: mpsc::Sender<Request>,
 
     //we keep, agents have receiver
-    response_senders: Vec<mpsc::Sender<RegretResponse>>,
+    response_senders: Vec<mpsc::Sender<Response>>,
+    //which sender's we've sent Response::Closed to
+    closed_senders: Vec<bool>,
 
     p1_regrets: HashMap<u64, Vec<f64>>,
     p2_regrets: HashMap<u64, Vec<f64>>,
@@ -26,22 +28,23 @@ impl HashRegretProvider {
             request_receiver,
 
             response_senders: vec![],
+            closed_senders: vec![],
 
             p1_regrets: HashMap::new(),
             p2_regrets: HashMap::new(),
         }
     }
 
-    fn handle_regret_request(&self, request: RegretRequest) {
+    fn handle_regret_request(&self, request: &RegretRequest) {
         let regrets = match request.player {
             Player::P1 => &self.p1_regrets,
             Player::P2 => &self.p2_regrets,
         };
         let regret = regrets[&request.infoset_hash].clone();
         if let Some(sender) = self.response_senders.get(request.handler) {
-            sender.send(RegretResponse {
+            sender.send(Response::Regret(RegretResponse {
                 regret
-            }).unwrap_or_else(|_| panic!("failed to send regret to for handler {}", request.handler));
+            })).unwrap_or_else(|_| panic!("failed to send regret to handler {}", request.handler));
         } else {
             panic!("failed to find regret sender for handler {}", request.handler);
         }
@@ -59,6 +62,15 @@ impl HashRegretProvider {
             *r += d
         }
     }
+    
+    fn reject_request(&self, request: &RegretRequest) {
+        if let Some(sender) = self.response_senders.get(request.handler) {
+            sender.send(Response::Closed)
+                .unwrap_or_else(|_| panic!("failed to send Closed to handler {}", request.handler));
+        } else {
+            panic!("failed to find regret sender for handler {}", request.handler);
+        }
+    }
 }
 
 impl RegretProvider for HashRegretProvider {
@@ -68,8 +80,9 @@ impl RegretProvider for HashRegretProvider {
 
         let (response_sender, response_receiver) = mpsc::channel();
         self.response_senders.push(response_sender);
+        self.closed_senders.push(false);
 
-        let handler = self.response_senders.len();
+        let handler = self.response_senders.len() - 1;
 
         RegretHandler {
             requester: request_sender,
@@ -79,24 +92,64 @@ impl RegretProvider for HashRegretProvider {
     }
 
     fn run(&mut self) {
-        let request = self.request_receiver.recv().expect("failed to receive request");
+        let mut close_flag = false;
+        let mut num_closed = 0;
+        while num_closed < self.response_senders.len() {
 
-        match request {
-            Request::Regret(request) => {
-                self.handle_regret_request(request);
-            },
-            Request::Delta(delta) => {
-                self.handle_regret_delta(delta);
-            },
-        };
+            let request = self.request_receiver.recv().expect("failed to receive request");
+
+            match request {
+                Request::Regret(ref request) if close_flag => {
+                    self.reject_request(request);
+                    if self.closed_senders.get(request.handler) == Some(&false) {
+                        self.closed_senders[request.handler] = true;
+                        num_closed += 1;
+                    }
+                }
+                Request::Regret(request) => self.handle_regret_request(&request),
+                Request::Delta(delta) => self.handle_regret_delta(delta),
+                Request::Close => close_flag = true,
+            };
+        }
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::game;
     use std::thread;
+
+    #[test]
+    fn handles_delta_request_new() {
+        let mut provider = HashRegretProvider::new();
+        let infoset_hash = 1;
+        let regret = vec![1.0, 2.0, 3.0];
+        provider.handle_regret_delta(RegretDelta {
+            player: Player::P1,
+            regret_delta: regret.clone(),
+            infoset_hash,
+        });
+        let saved_regret = &provider.p1_regrets[&infoset_hash];
+        assert_eq!(*saved_regret, regret);
+    }
+
+    #[test]
+    fn handles_delta_request_existing() {
+        let mut provider = HashRegretProvider::new();
+        let infoset_hash = 1;
+        let regret = vec![1.0, 2.0, 3.0];
+        let target_regret = vec![2.0, 4.0, 6.0];
+        provider.p1_regrets.insert(infoset_hash, regret.clone());
+
+        provider.handle_regret_delta(RegretDelta {
+            player: Player::P1,
+            regret_delta: regret.clone(),
+            infoset_hash,
+        });
+        let saved_regret = &provider.p1_regrets[&infoset_hash];
+
+        assert_eq!(*saved_regret, target_regret);
+    }
 
     #[test]
     fn gets_regret() {
@@ -111,12 +164,65 @@ mod tests {
             provider.run();
         });
 
-        handler.requester.send(Request::Regret(RegretRequest {
-            player: game::Player::P1,
-            infoset_hash: infoset_hash,
-            handler: handler.handler,
-        })).expect("failed to send request");
-        let rsp = handler.receiver.recv().expect("failed to receive response");
-        assert_eq!(regret, rsp.regret);
+        let rsp = handler.get_regret(Player::P1, infoset_hash)
+            .expect("failed to get regret");
+
+        if let Response::Regret(rsp) = rsp {
+            assert_eq!(rsp.regret, regret);
+        } else {
+            panic!("got closed provider")
+        }
     }
+
+    #[test]
+    fn sends_delta_new() {
+        let mut provider = HashRegretProvider::new();
+        let infoset_hash = 1;
+        let regret = vec![1.0, 2.0, 3.0];
+        let handler = provider.get_handler();
+
+        thread::spawn(move || {
+            provider.run();
+        });
+
+        handler.send_delta(Player::P1, infoset_hash, regret.clone())
+            .expect("failed to send delta");
+
+        let rsp = handler.get_regret(Player::P1, infoset_hash)
+            .expect("failed to get regret");
+
+        if let Response::Regret(rsp) = rsp {
+            assert_eq!(rsp.regret, regret);
+        } else {
+            panic!("got closed provider")
+        }
+    }
+
+    //#[test]
+    fn sends_delta_existing() {
+        let mut provider = HashRegretProvider::new();
+        let infoset_hash = 1;
+        let regret = vec![1.0, 2.0, 3.0];
+        let handler = provider.get_handler();
+
+        thread::spawn(move || {
+            provider.run();
+        });
+
+        handler.send_delta(Player::P1, infoset_hash, regret.clone())
+            .expect("failed to send delta");
+
+        handler.send_delta(Player::P1, infoset_hash, regret.clone())
+            .expect("failed to send delta");
+
+        let rsp = handler.get_regret(Player::P1, infoset_hash)
+            .expect("failed to get regret");
+
+        if let Response::Regret(rsp) = rsp {
+            assert_eq!(rsp.regret, vec![2.0, 4.0, 6.0]);
+        } else {
+            panic!("got closed provider")
+        }
+    }
+
 }
