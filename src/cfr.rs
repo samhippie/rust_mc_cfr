@@ -1,26 +1,20 @@
 use rand::distributions::Distribution;
 use crate::game::{Game, Player, Infoset};
-use std::sync::mpsc;
 use crate::regret;
 
 pub struct CounterFactualRegret {
-    regret_requester: mpsc::Sender<regret::Request>,
-    regret_receiver: mpsc::Receiver<regret::RegretResponse>,
-    regret_handler: usize,
-    //TODO average strategy
+    regret_handler: regret::RegretHandler,
+
     on_player: Player,
     rng: rand::rngs::ThreadRng,
 }
 
 impl CounterFactualRegret {
     pub fn new(regret_provider: &mut regret::RegretProvider) -> CounterFactualRegret {
-        let (regret_requester, handler) = regret_provider.get_requester();
-        let regret_receiver = regret_provider.get_receiver(handler);
+        let regret_handler = regret_provider.get_handler();
 
         CounterFactualRegret {
-            regret_requester,
-            regret_receiver,
-            regret_handler: handler,
+            regret_handler: regret_handler,
 
             on_player: Player::P1,
             rng: rand::thread_rng(),
@@ -46,11 +40,8 @@ impl CounterFactualRegret {
                 .sum();
             let regrets = rewards.iter().map(|r| r - expected_value).collect();
 
-            self.regret_requester.send(regret::Request::Delta(regret::RegretDelta { 
-                player,
-                infoset_hash: infoset.hash, 
-                regret_delta: regrets 
-            })).expect("Failed to send regret delta");
+            self.regret_handler.send_delta(player, infoset.hash, regrets)
+                .expect("Failed to send regret delta");
 
             expected_value
 
@@ -75,13 +66,9 @@ impl CounterFactualRegret {
 
     fn regret_match(&self, player: Player, infoset: &Infoset, num_actions: usize) -> Vec<f64>
     {
-        self.regret_requester.send(regret::Request::Regret(regret::RegretRequest { 
-            player, 
-            infoset_hash: infoset.hash, 
-            handler: self.regret_handler,
-        })).expect("Failed to send regret request");
+        let regret_response = self.regret_handler.get_regret(player, infoset.hash)
+            .expect("Failed to get regret");
 
-        let regret_response = self.regret_receiver.recv().expect("Failed to receive regret");
         let regrets = regret_response.regret;
 
         let pos_regrets: Vec<f64> = regrets.iter().map(|&regret| {

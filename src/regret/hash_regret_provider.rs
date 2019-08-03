@@ -1,37 +1,8 @@
+
 use std::collections::HashMap;
 use std::sync::mpsc;
-
-use crate::game::Player;
-
-
-pub struct RegretResponse {
-    pub regret: Vec<f64>
-}
-
-pub struct RegretRequest {
-    pub player: Player,
-    pub infoset_hash: u64,
-    pub handler: usize,
-}
-
-pub struct RegretDelta {
-    pub player: Player,
-    pub infoset_hash: u64,
-    pub regret_delta: Vec<f64>,
-}
-
-
-pub enum Request {
-    Regret(RegretRequest),
-    Delta(RegretDelta),
-}
-
-
-pub trait RegretProvider {
-    fn get_requester(&mut self) -> (mpsc::Sender<Request>, usize);
-    fn get_receiver(&mut self, handler: usize) -> mpsc::Receiver<RegretResponse>;
-    fn run(&mut self);
-}
+use crate::game::*;
+use crate::regret::regret_provider::*;
 
 pub struct HashRegretProvider {
     //we keep
@@ -40,7 +11,7 @@ pub struct HashRegretProvider {
     request_sender: mpsc::Sender<Request>,
 
     //we keep, agents have receiver
-    response_senders: Vec<Option<mpsc::Sender<RegretResponse>>>,
+    response_senders: Vec<mpsc::Sender<RegretResponse>>,
 
     p1_regrets: HashMap<u64, Vec<f64>>,
     p2_regrets: HashMap<u64, Vec<f64>>,
@@ -67,7 +38,7 @@ impl HashRegretProvider {
             Player::P2 => &self.p2_regrets,
         };
         let regret = regrets[&request.infoset_hash].clone();
-        if let Some(Some(sender)) = self.response_senders.get(request.handler) {
+        if let Some(sender) = self.response_senders.get(request.handler) {
             sender.send(RegretResponse {
                 regret
             }).unwrap_or_else(|_| panic!("failed to send regret to for handler {}", request.handler));
@@ -92,21 +63,19 @@ impl HashRegretProvider {
 
 impl RegretProvider for HashRegretProvider {
 
-    fn get_requester(&mut self) -> (mpsc::Sender<Request>, usize) {
-        let sender = self.request_sender.clone();
-        let handler = self.response_senders.len() + 1;
-        self.response_senders.push(None);
-        (sender, handler)
-    }
+    fn get_handler(&mut self) -> RegretHandler {
+        let request_sender = self.request_sender.clone();
 
-    fn get_receiver(&mut self, handler: usize) -> mpsc::Receiver<RegretResponse> {
-        let (sender, receiver) = mpsc::channel();
-        if handler < self.response_senders.len() && self.response_senders[handler].is_none() {
-            self.response_senders[handler] = Some(sender);
-        } else {
-            panic!("handler already taken");
+        let (response_sender, response_receiver) = mpsc::channel();
+        self.response_senders.push(response_sender);
+
+        let handler = self.response_senders.len();
+
+        RegretHandler {
+            requester: request_sender,
+            receiver: response_receiver,
+            handler,
         }
-        receiver
     }
 
     fn run(&mut self) {
@@ -121,6 +90,33 @@ impl RegretProvider for HashRegretProvider {
             },
         };
     }
+}
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::game;
+    use std::thread;
 
+    #[test]
+    fn gets_regret() {
+        let mut provider = HashRegretProvider::new();
+        let infoset_hash = 1;
+        let regret = vec![1.0, 2.0, 3.0];
+        provider.p1_regrets.insert(1, regret.clone());
+
+        let handler = provider.get_handler();
+
+        thread::spawn(move || {
+            provider.run();
+        });
+
+        handler.requester.send(Request::Regret(RegretRequest {
+            player: game::Player::P1,
+            infoset_hash: infoset_hash,
+            handler: handler.handler,
+        })).expect("failed to send request");
+        let rsp = handler.receiver.recv().expect("failed to receive response");
+        assert_eq!(regret, rsp.regret);
+    }
 }
