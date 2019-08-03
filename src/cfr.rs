@@ -3,7 +3,7 @@ use crate::game::{Game, Player, Infoset};
 use crate::regret;
 
 pub struct CounterFactualRegret {
-    regret_handler: regret::RegretHandler,
+    regret_handler: Option<regret::RegretHandler>,
     strat_handler: regret::RegretHandler,
 
     on_player: Player,
@@ -19,8 +19,22 @@ impl CounterFactualRegret {
         let strat_handler = strat_provider.get_handler();
 
         CounterFactualRegret {
-            regret_handler: regret_handler,
+            regret_handler: Some(regret_handler),
             strat_handler: strat_handler,
+
+            on_player: Player::P1,
+            rng: rand::thread_rng(),
+
+            verbose: false,
+            iteration: 0,
+        }
+    }
+
+    pub fn new_strat_only(strat_provider: &mut regret::RegretProvider) -> CounterFactualRegret {
+        let strat_handler = strat_provider.get_handler();
+        CounterFactualRegret {
+            regret_handler: None,
+            strat_handler,
 
             on_player: Player::P1,
             rng: rand::thread_rng(),
@@ -88,7 +102,10 @@ impl CounterFactualRegret {
             self.strat_handler.send_delta(player, infoset.hash, probs, self.iteration)
                 .expect("Failed to update average strategy");
 
-            self.regret_handler.send_delta(player, infoset.hash, regrets, self.iteration / 2 + 1)
+            self.regret_handler
+                .as_mut()
+                .expect("Tried to search in a stategy-only cfr instance")
+                .send_delta(player, infoset.hash, regrets, self.iteration / 2 + 1)
                 .expect("Failed to send regret delta");
 
             Some(expected_value)
@@ -109,8 +126,11 @@ impl CounterFactualRegret {
         CounterFactualRegret::regret_match(&self.strat_handler, player, infoset, num_actions)
     }
 
-    fn get_iter_strategy(&self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>> {
-        CounterFactualRegret::regret_match(&self.regret_handler, player, infoset, num_actions)
+    fn get_iter_strategy(&mut self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>> {
+        let regret_handler = self.regret_handler
+            .as_mut()
+            .expect("Tried to get iter stategy in a strategy-only cfr instance");
+        CounterFactualRegret::regret_match(&regret_handler, player, infoset, num_actions)
     }
 
     fn regret_match(regret_handler: &regret::RegretHandler, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
