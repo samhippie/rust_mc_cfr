@@ -264,8 +264,8 @@ mod tests {
         game.take_turn(Player::P1, &8);
         assert_eq!(game.get_reward(), Some(1.0));
         assert_eq!(game.history.len(), 5);
-        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 3);
-        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 2);
+        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 5);
+        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 5);
     }
 
     #[test]
@@ -282,7 +282,7 @@ mod tests {
         game.take_turn(Player::P1, &8);
         assert_eq!(game.get_reward(), Some(0.0));
         assert_eq!(game.history.len(), 9);
-        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 5);
-        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 4);
+        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 9);
+        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 9);
     }
 }
