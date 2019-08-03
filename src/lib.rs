@@ -3,15 +3,20 @@ use rand::seq::SliceRandom;
 
 mod game;
 use game::Game;
-
 mod tictactoe;
+mod cfr;
+mod regret;
+
 
 pub fn run() {
-    let mut game = tictactoe::TicTacToe::new();
-    play_game(&mut game);
+    let game = tictactoe::TicTacToe::new();
+    let mut regret_provider = regret::HashRegretProvider::new();
+    //can each agent mutably borrow the same regret provider before I start the threads?
+    let mut cfr = cfr::CounterFactualRegret::new(&mut regret_provider);
+    cfr.search(game);
 }
 
-pub fn play_game<A: fmt::Display>(game: &mut Game<Action=A>) {
+pub fn play_random_game<A: fmt::Display>(game: &mut Game<Action=A>) {
     let mut rng = rand::thread_rng();
 
     loop {

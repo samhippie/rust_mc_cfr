@@ -6,21 +6,25 @@ use std::fmt::{Display, Formatter};
 use crate::game;
 use crate::game::{Player};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct TicTacToe {
-    turn: Player,
+    current_player: Player,
+    /// 3x3 grid as a 1d row-major array
     board: [Option<Player>; 9],
+    /// Player actions in the order they were made
+    history: Vec<(Player, usize)>
 }
 
 impl TicTacToe {
     pub fn new() -> TicTacToe {
         TicTacToe {
-            turn: Player::P1,
+            current_player: Player::P1,
             board: [
                 None, None, None, 
                 None, None, None, 
                 None, None, None
             ],
+            history: vec![],
         }
     }
 }
@@ -40,11 +44,11 @@ impl game::Game for TicTacToe {
             })
             .collect();
         
-        (self.turn, spaces)
+        (self.current_player, spaces)
     }
 
     fn take_turn(&mut self, player: Player, action: &usize) {
-        if player != self.turn {
+        if player != self.current_player {
             panic!("Given player doesn't match saved player");
         }
 
@@ -53,35 +57,49 @@ impl game::Game for TicTacToe {
         }
         
         self.board[*action] = Some(player);
-        self.turn = match player {
+        self.current_player = match player {
             Player::P1 => Player::P2,
             Player::P2 => Player::P1,
-        }
+        };
+        self.history.push((player, *action));
     }
 
     fn get_reward(&self) -> Option<f32> {
         
         match check_rows(&self)
             .or_else(|| check_cols(&self))
-            .or_else(|| check_diagonals(&self)) {
-                Some(Player::P1) => Some(1.0),
-                Some(Player::P2) => Some(-1.0),
-                None => {
-                    //empty space means game isn't over
-                    if self.board.iter().any(|space| space.is_none()) {
-                        None
-                    } else {
-                        //no empty space and no winner means tie
-                        Some(0.0)
-                    }
+            .or_else(|| check_diagonals(&self)) 
+        {
+            Some(Player::P1) => Some(1.0),
+            Some(Player::P2) => Some(-1.0),
+            None => {
+                //empty space means game isn't over
+                if self.board.iter().any(|space| space.is_none()) {
+                    None
+                } else {
+                    //no empty space and no winner means tie
+                    Some(0.0)
                 }
             }
+        }
+    }
+
+    fn get_infoset(&self, _player: Player) -> game::Infoset {
+        let infoset = self.history.iter().map(|(p, action)| {
+            let player_bit = match p {
+                Player::P1 => 0,
+                Player::P2 => 1,
+            };
+            //highest action is 8 = 2^3, so player is set in the next bit
+            (action | (player_bit << 4)) as u64
+        }).collect();
+        game::Infoset::new(infoset)
     }
 }
 
 impl Display for TicTacToe {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "To move: {}\n", space_to_string(Some(self.turn)))?;
+        write!(f, "To move: {}\n", self.current_player)?;
         for row in 0..3 {
             for col in 0..3 {
                 write!(f, "|{}", space_to_string(self.board[3 * row + col]))?;
@@ -154,8 +172,9 @@ mod tests {
             Some(Player::P1), Some(Player::P2), Some(Player::P2),
         ];
         let game = TicTacToe {
+            history: vec![],
             board: board,
-            turn: Player::P2,
+            current_player: Player::P2,
         };
         assert_eq!(check_cols(&game), Some(Player::P1));
     }
@@ -168,8 +187,9 @@ mod tests {
             Some(Player::P1), Some(Player::P2), Some(Player::P2),
         ];
         let game = TicTacToe {
+            history: vec![],
             board: board,
-            turn: Player::P2,
+            current_player: Player::P2,
         };
         assert_eq!(check_cols(&game), None);
     }
@@ -182,8 +202,9 @@ mod tests {
             Some(Player::P1), Some(Player::P1), Some(Player::P1),
         ];
         let game = TicTacToe {
+            history: vec![],
             board: board,
-            turn: Player::P2,
+            current_player: Player::P2,
         };
         assert_eq!(check_rows(&game), Some(Player::P1));
     }
@@ -196,8 +217,9 @@ mod tests {
             Some(Player::P2), Some(Player::P2), Some(Player::P1),
         ];
         let game = TicTacToe {
+            history: vec![],
             board: board,
-            turn: Player::P1,
+            current_player: Player::P1,
         };
         assert_eq!(check_rows(&game), None);
     }
@@ -210,8 +232,9 @@ mod tests {
             Some(Player::P2), Some(Player::P1), Some(Player::P1),
         ];
         let game = TicTacToe {
+            history: vec![],
             board: board,
-            turn: Player::P1,
+            current_player: Player::P1,
         };
         assert_eq!(check_diagonals(&game), Some(Player::P2));
     }
@@ -224,8 +247,9 @@ mod tests {
             Some(Player::P2), Some(Player::P1), Some(Player::P1),
         ];
         let game = TicTacToe {
+            history: vec![],
             board: board,
-            turn: Player::P1,
+            current_player: Player::P1,
         };
         assert_eq!(check_diagonals(&game), None);
     }
@@ -239,6 +263,9 @@ mod tests {
         game.take_turn(Player::P2, &3);
         game.take_turn(Player::P1, &8);
         assert_eq!(game.get_reward(), Some(1.0));
+        assert_eq!(game.history.len(), 5);
+        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 3);
+        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 2);
     }
 
     #[test]
@@ -254,5 +281,8 @@ mod tests {
         game.take_turn(Player::P2, &7);
         game.take_turn(Player::P1, &8);
         assert_eq!(game.get_reward(), Some(0.0));
+        assert_eq!(game.history.len(), 9);
+        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 5);
+        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 4);
     }
 }

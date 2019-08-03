@@ -1,9 +1,29 @@
 use std::fmt;
+use std::hash::{Hash, Hasher};
+use std::collections::hash_map::DefaultHasher;
 
 #[derive(PartialEq, Copy, Clone, Debug)]
 pub enum Player {
     P1,
     P2,
+}
+
+pub struct Infoset {
+    pub infoset: Vec<u64>,
+    pub hash: u64,
+}
+
+impl Infoset {
+    pub fn new(infoset: Vec<u64>) -> Infoset {
+        let mut hasher = DefaultHasher::new();
+        infoset.hash(&mut hasher);
+        let hash = hasher.finish();
+
+        Infoset {
+            infoset,
+            hash,
+        }
+    }
 }
 
 /// 2 player zero sum game
@@ -26,4 +46,9 @@ pub trait Game: fmt::Display {
     /// Otherwise returns the reward for Player 1
     fn get_reward(&self) -> Option<f32>;
 
+    /// Returns a player's infoset as a vector of hashes
+    /// 
+    /// Earlier parts of the infoset should come first, so an early infoset
+    /// is a prefix of a later infoset
+    fn get_infoset(&self, player: Player) -> Infoset;
 }
