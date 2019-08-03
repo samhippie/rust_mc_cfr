@@ -21,10 +21,17 @@ pub fn run() {
 
 fn do_cfr() {
 
+    //let get_game = || rps::RockPaperScissors::new();
+    let get_game = || tictactoe::TicTacToe::new();
+
+    let num_threads = 16;
+
     let mut regret_provider = regret::HashRegretProvider::new();
     let mut strat_provider = regret::HashRegretProvider::new();
     //can each agent mutably borrow the same regret provider before I start the threads?
-    let mut cfr = cfr::CounterFactualRegret::new(&mut regret_provider, &mut strat_provider);
+    let cfrs: Vec<cfr::CounterFactualRegret> = (0..num_threads)
+        .map(|_| cfr::CounterFactualRegret::new(&mut regret_provider, &mut strat_provider))
+        .collect();
 
     //agent for after we've trained
     let strat_cfr = cfr::CounterFactualRegret::new_strat_only(&mut strat_provider);
@@ -35,22 +42,33 @@ fn do_cfr() {
     thread::spawn(move || {
         strat_provider.run();
     });
-    for i in 0..100001 {
-        //let game = tictactoe::TicTacToe::new();
-        let game = rps::RockPaperScissors::new();
-        //cfr.verbose = i == 10000;
-        cfr.set_iteration(i);
-        let expected_value = cfr.search(game);
-        println!("iteration {} expected value {:?}", i, expected_value);
+
+    println!("num cfrs {}", cfrs.len());
+    let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
+        println!("starting thread {}", tid);
+        thread::spawn(move || {
+            for i in 0..1000 {
+                let game = get_game();
+                cfr.set_iteration(i);
+                cfr.search(game);
+            }
+        })
+    }).collect();
+
+    for child in children.into_iter() {
+        child.join().unwrap();
     }
 
-    let mut game = rps::RockPaperScissors::new();
-    play_cfr_game(&mut game, strat_cfr);
+    for _ in 0..10 {
+        println!("---------------------------");
+        let mut game = get_game();
+        play_cfr_game(&mut game, &strat_cfr);
+    }
 
 
 }
 
-pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cfr: cfr::CounterFactualRegret) {
+pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
     let mut rng = rand::thread_rng();
 
     loop {

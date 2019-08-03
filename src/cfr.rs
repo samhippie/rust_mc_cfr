@@ -7,7 +7,6 @@ pub struct CounterFactualRegret {
     strat_handler: regret::RegretHandler,
 
     on_player: Player,
-    rng: rand::rngs::ThreadRng,
 
     pub verbose: bool,
     iteration: i32,
@@ -23,7 +22,6 @@ impl CounterFactualRegret {
             strat_handler: strat_handler,
 
             on_player: Player::P1,
-            rng: rand::thread_rng(),
 
             verbose: false,
             iteration: 0,
@@ -37,7 +35,6 @@ impl CounterFactualRegret {
             strat_handler,
 
             on_player: Player::P1,
-            rng: rand::thread_rng(),
 
             verbose: false,
             iteration: 0,
@@ -76,6 +73,8 @@ impl CounterFactualRegret {
         let infoset = game.get_infoset(player);
         if player == self.on_player {
             //normally I like to get probs first, but recursing first seems interesting
+            let probs = self.get_iter_strategy(player, &infoset, actions.len())?;
+
             let rewards: Option<Vec<f64>> = actions.iter().map(|action| {
                 let mut subgame = game.clone();
                 subgame.take_turn(player, action);
@@ -83,7 +82,6 @@ impl CounterFactualRegret {
             }).collect();
             let rewards = rewards?;
 
-            let probs = self.get_iter_strategy(player, &infoset, actions.len())?;
             let expected_value: f64 = probs.iter().zip(rewards.iter())
                 .map(|(p, r)| p * r)
                 .sum();
@@ -99,9 +97,6 @@ impl CounterFactualRegret {
                 println!("expected value {:?}", expected_value);
             }
 
-            self.strat_handler.send_delta(player, infoset.hash, probs, self.iteration)
-                .expect("Failed to update average strategy");
-
             self.regret_handler
                 .as_mut()
                 .expect("Tried to search in a stategy-only cfr instance")
@@ -111,10 +106,13 @@ impl CounterFactualRegret {
             Some(expected_value)
 
         } else {
-            let probs = self.get_avg_strategy(player, &infoset, actions.len())?;
+            let probs = self.get_iter_strategy(player, &infoset, actions.len())?;
             let sampler = rand::distributions::WeightedIndex::new(&probs).unwrap();
 
-            let action_index = sampler.sample(&mut self.rng);
+            self.strat_handler.send_delta(player, infoset.hash, probs, self.iteration)
+                .expect("Failed to update average strategy");
+
+            let action_index = sampler.sample(&mut rand::thread_rng());
             let action = &actions[action_index];
             game.take_turn(player, action);
 

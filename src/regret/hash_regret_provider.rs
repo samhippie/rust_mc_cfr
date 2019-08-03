@@ -63,7 +63,7 @@ impl HashRegretProvider {
             //x = x * (n-1)/n + y is proportional to x += n * y
             //but more numerically stable
             /*
-            *r = *r * (delta.iteration as f64 - 1.0) / (delta.iteration as f64) + d;
+            *r = *r * (delta.iteration as f64) / (delta.iteration as f64 + 1.0) + d;
             if *r < 0.0 {
                 *r = 0.0;
             }
