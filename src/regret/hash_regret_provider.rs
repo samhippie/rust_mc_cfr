@@ -40,7 +40,7 @@ impl HashRegretProvider {
             Player::P1 => &self.p1_regrets,
             Player::P2 => &self.p2_regrets,
         };
-        let regret = regrets[&request.infoset_hash].clone();
+        let regret = regrets.get(&request.infoset_hash).and_then(|regret| Some(regret.clone()));
         if let Some(sender) = self.response_senders.get(request.handler) {
             sender.send(Response::Regret(RegretResponse {
                 regret
@@ -59,7 +59,12 @@ impl HashRegretProvider {
             .or_insert(vec![0.0; delta.regret_delta.len()]);
 
         for (r, d) in regret.iter_mut().zip(delta.regret_delta.iter()) {
-            *r += d
+            //x = x * (n-1)/n + y is proportional to x += n * y
+            //but more numerically stable
+            *r = *r * (delta.iteration as f64 - 1.0) / (delta.iteration as f64) + d;
+            if *r < 0.0 {
+                *r = 0.0;
+            }
         }
     }
     
@@ -128,6 +133,7 @@ mod tests {
             player: Player::P1,
             regret_delta: regret.clone(),
             infoset_hash,
+            iteration: 1,
         });
         let saved_regret = &provider.p1_regrets[&infoset_hash];
         assert_eq!(*saved_regret, regret);
@@ -145,6 +151,7 @@ mod tests {
             player: Player::P1,
             regret_delta: regret.clone(),
             infoset_hash,
+            iteration: 1,
         });
         let saved_regret = &provider.p1_regrets[&infoset_hash];
 
@@ -168,7 +175,7 @@ mod tests {
             .expect("failed to get regret");
 
         if let Response::Regret(rsp) = rsp {
-            assert_eq!(rsp.regret, regret);
+            assert_eq!(rsp.regret.unwrap(), regret);
         } else {
             panic!("got closed provider")
         }
@@ -185,14 +192,14 @@ mod tests {
             provider.run();
         });
 
-        handler.send_delta(Player::P1, infoset_hash, regret.clone())
+        handler.send_delta(Player::P1, infoset_hash, regret.clone(), 1)
             .expect("failed to send delta");
 
         let rsp = handler.get_regret(Player::P1, infoset_hash)
             .expect("failed to get regret");
 
         if let Response::Regret(rsp) = rsp {
-            assert_eq!(rsp.regret, regret);
+            assert_eq!(rsp.regret.unwrap(), regret);
         } else {
             panic!("got closed provider")
         }
@@ -209,17 +216,17 @@ mod tests {
             provider.run();
         });
 
-        handler.send_delta(Player::P1, infoset_hash, regret.clone())
+        handler.send_delta(Player::P1, infoset_hash, regret.clone(), 1)
             .expect("failed to send delta");
 
-        handler.send_delta(Player::P1, infoset_hash, regret.clone())
+        handler.send_delta(Player::P1, infoset_hash, regret.clone(), 1)
             .expect("failed to send delta");
 
         let rsp = handler.get_regret(Player::P1, infoset_hash)
             .expect("failed to get regret");
 
         if let Response::Regret(rsp) = rsp {
-            assert_eq!(rsp.regret, vec![2.0, 4.0, 6.0]);
+            assert_eq!(rsp.regret.unwrap(), vec![2.0, 4.0, 6.0]);
         } else {
             panic!("got closed provider")
         }

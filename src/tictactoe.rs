@@ -64,7 +64,7 @@ impl game::Game for TicTacToe {
         self.history.push((player, *action));
     }
 
-    fn get_reward(&self) -> Option<f32> {
+    fn get_reward(&self) -> Option<f64> {
         
         match check_rows(&self)
             .or_else(|| check_cols(&self))
