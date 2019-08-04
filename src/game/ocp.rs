@@ -5,6 +5,8 @@ use std::fmt::{Display, Formatter};
 
 use crate::game::{Game, Player, Infoset};
 
+const NUM_CARDS: u32 = 13;
+
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum Action {
     Fold,
@@ -54,8 +56,8 @@ pub struct OneCardPoker {
 impl OneCardPoker {
     pub fn new() -> OneCardPoker {
         let mut rng = rand::thread_rng();
-        let hand1: u32 = rng.gen_range(0, 13);
-        let mut hand2: u32 = rng.gen_range(0, 12);
+        let hand1: u32 = rng.gen_range(0, NUM_CARDS);
+        let mut hand2: u32 = rng.gen_range(0, NUM_CARDS);
         if hand2 >= hand1 {
             hand2 += 1;
         }
@@ -121,13 +123,15 @@ impl Game for OneCardPoker {
         self.current_player = current_player;
         self.state = state;
         self.current_actions = state_to_actions(state);
+        self.history.push((player, *action));
     }
 
     fn get_reward(&self) -> Option<f64> {
         //the reward is the other player's contribution to the pot
         //divide by 2 to put the rewards between -1 and 1
         match self.state {
-            PokerState::FoldEnd => Some(*self.current_player.other().lens(&self.pot) as f64 / 2.0),
+            PokerState::FoldEnd if self.current_player == Player::P1 => Some(self.pot.1 as f64 / 2.0),
+            PokerState::FoldEnd if self.current_player == Player::P2 => Some(-1.0 * self.pot.0 as f64 / 2.0),
             PokerState::ShowdownEnd if self.hands.0 > self.hands.1 => Some(self.pot.1 as f64 / 2.0),
             PokerState::ShowdownEnd => Some(-1.0 * self.pot.0 as f64 / 2.0),
             _ => None,
@@ -149,9 +153,9 @@ impl Game for OneCardPoker {
 
 impl Display for OneCardPoker {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "P1 hand: {}, P2 hand: {}", self.hands.0, self.hands.1)?;
+        write!(f, "P1 hand: {}, P2 hand: {}; ", self.hands.0, self.hands.1)?;
         for (player, action) in self.history.iter() {
-            write!(f, "{} does {}", player, action)?;
+            write!(f, "{} does {}; ", player, action)?;
         }
         Ok(())
     }
@@ -177,26 +181,38 @@ mod tests {
         game.current_player = Player::P2;
 
         game.take_turn(Player::P2, &Action::Call);
+
+        let infoset = game.get_infoset(Player::P2);
+        assert_eq!(infoset.infoset.len(), 2);
+        let infoset = game.get_infoset(Player::P1);
+        assert_eq!(infoset.infoset.len(), 2);
+
         game.take_turn(Player::P1, &Action::Call);
         let reward = game.get_reward();
         assert_eq!(reward, Some(-0.5));
     }
 
     #[test]
-    fn early_fold() {
+    fn early_p2_fold() {
         let mut game = OneCardPoker::new();
         game.hands = (3,5);
         game.dealer = Player::P2;
         game.current_player = Player::P1;
 
         game.take_turn(Player::P1, &Action::Bet);
+
+        let infoset = game.get_infoset(Player::P2);
+        assert_eq!(infoset.infoset.len(), 2);
+        let infoset = game.get_infoset(Player::P1);
+        assert_eq!(infoset.infoset.len(), 2);
+
         game.take_turn(Player::P2, &Action::Fold);
         let reward = game.get_reward();
         assert_eq!(reward, Some(0.5));
     }
 
     #[test]
-    fn late_fold() {
+    fn late_p2_fold() {
         let mut game = OneCardPoker::new();
         game.hands = (3,5);
         game.dealer = Player::P1;
@@ -204,22 +220,54 @@ mod tests {
 
         game.take_turn(Player::P2, &Action::Call);
         game.take_turn(Player::P1, &Action::Bet);
+
+        let infoset = game.get_infoset(Player::P2);
+        assert_eq!(infoset.infoset.len(), 3);
+        let infoset = game.get_infoset(Player::P1);
+        assert_eq!(infoset.infoset.len(), 3);
+
         game.take_turn(Player::P2, &Action::Fold);
         let reward = game.get_reward();
         assert_eq!(reward, Some(0.5));
+    }
+
+    #[test]
+    fn late_p1_fold() {
+        let mut game = OneCardPoker::new();
+        game.hands = (3,5);
+        game.dealer = Player::P2;
+        game.current_player = Player::P1;
+
+        game.take_turn(Player::P1, &Action::Call);
+        game.take_turn(Player::P2, &Action::Bet);
+
+        let infoset = game.get_infoset(Player::P1);
+        assert_eq!(infoset.infoset.len(), 3);
+        let infoset = game.get_infoset(Player::P2);
+        assert_eq!(infoset.infoset.len(), 3);
+
+        game.take_turn(Player::P1, &Action::Fold);
+        let reward = game.get_reward();
+        assert_eq!(reward, Some(-0.5));
     }
 
     #[test]
     fn late_showdown() {
         let mut game = OneCardPoker::new();
-        game.hands = (3,5);
+        game.hands = (5,3);
         game.dealer = Player::P1;
         game.current_player = Player::P2;
 
         game.take_turn(Player::P2, &Action::Call);
         game.take_turn(Player::P1, &Action::Bet);
+
+        let infoset = game.get_infoset(Player::P2);
+        assert_eq!(infoset.infoset.len(), 3);
+        let infoset = game.get_infoset(Player::P1);
+        assert_eq!(infoset.infoset.len(), 3);
+
         game.take_turn(Player::P2, &Action::Call);
         let reward = game.get_reward();
-        assert_eq!(reward, Some(-1.0));
+        assert_eq!(reward, Some(1.0));
     }
 }
