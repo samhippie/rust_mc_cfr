@@ -1,10 +1,13 @@
 use rand::distributions::Distribution;
 use crate::game::{Game, Player, Infoset};
 use crate::regret;
+use crate::regret::regret_sharder;
 
 pub struct CounterFactualRegret {
-    regret_handler: Option<regret::RegretHandler>,
-    strat_handler: regret::RegretHandler,
+    //regret_handler: Option<regret::RegretHandler>,
+    regret_handler: Option<regret_sharder::RegretSharder>,
+    //strat_handler: regret::RegretHandler,
+    strat_handler: regret_sharder::RegretSharder,
 
     on_player: Player,
 
@@ -13,26 +16,21 @@ pub struct CounterFactualRegret {
 }
 
 impl CounterFactualRegret {
-    pub fn new(regret_provider: &mut regret::RegretProvider, strat_provider: &mut regret::RegretProvider) -> CounterFactualRegret {
-        let regret_handler = regret_provider.get_handler();
-        let strat_handler = strat_provider.get_handler();
 
+    pub fn new(regret_sharder: regret_sharder::RegretSharder, strategy_sharder: regret_sharder::RegretSharder) -> CounterFactualRegret {
         CounterFactualRegret {
-            regret_handler: Some(regret_handler),
-            strat_handler: strat_handler,
-
+            regret_handler: Some(regret_sharder),
+            strat_handler: strategy_sharder,
             on_player: Player::P1,
-
             verbose: false,
             iteration: 0,
         }
     }
 
-    pub fn new_strat_only(strat_provider: &mut regret::RegretProvider) -> CounterFactualRegret {
-        let strat_handler = strat_provider.get_handler();
+    pub fn new_strat_only(strategy_sharder: regret_sharder::RegretSharder) -> CounterFactualRegret {
         CounterFactualRegret {
             regret_handler: None,
-            strat_handler,
+            strat_handler: strategy_sharder,
 
             on_player: Player::P1,
 
@@ -72,7 +70,6 @@ impl CounterFactualRegret {
         let (player, actions) = game.get_turn();
         let infoset = game.get_infoset(player);
         if player == self.on_player {
-            //normally I like to get probs first, but recursing first seems interesting
             let probs = self.get_iter_strategy(player, &infoset, actions.len())?;
 
             let rewards: Option<Vec<f64>> = actions.iter().map(|action| {
@@ -131,7 +128,7 @@ impl CounterFactualRegret {
         CounterFactualRegret::regret_match(&regret_handler, player, infoset, num_actions)
     }
 
-    fn regret_match(regret_handler: &regret::RegretHandler, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
+    fn regret_match(regret_handler: &regret_sharder::RegretSharder, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
     {
         let regret_response = regret_handler.get_regret(player, infoset.hash)
             .expect("Failed to get regret");

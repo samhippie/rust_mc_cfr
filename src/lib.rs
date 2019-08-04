@@ -24,25 +24,49 @@ fn do_cfr() {
     //let get_game = || rps::RockPaperScissors::new();
     let get_game = || tictactoe::TicTacToe::new();
 
-    let num_threads = 16;
+    let num_threads = 20;
+    let num_shards = 8;
 
-    let mut regret_provider = regret::HashRegretProvider::new();
-    let mut strat_provider = regret::HashRegretProvider::new();
-    //can each agent mutably borrow the same regret provider before I start the threads?
+    //each provider will hold part of the regret table
+    let mut regret_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
+        .map(|_| {
+            regret::HashRegretProvider::new()
+        })
+        .collect();
+    let mut strategy_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
+        .map(|_| {
+            regret::HashRegretProvider::new()
+        })
+        .collect();
+
+    //each thread's agent
+    //each agent gets its own regret sharder, but the regret shards share the providers
     let cfrs: Vec<cfr::CounterFactualRegret> = (0..num_threads)
-        .map(|_| cfr::CounterFactualRegret::new(&mut regret_provider, &mut strat_provider))
+        .map(|_| {
+            let regret_sharder = regret::RegretSharder::new(&mut regret_providers);
+            let strategy_sharder = regret::RegretSharder::new(&mut strategy_providers);
+            cfr::CounterFactualRegret::new(regret_sharder, strategy_sharder)
+        })
         .collect();
 
     //agent for after we've trained
-    let strat_cfr = cfr::CounterFactualRegret::new_strat_only(&mut strat_provider);
+    let strategy_sharder = regret::RegretSharder::new(&mut strategy_providers);
+    let strat_cfr = cfr::CounterFactualRegret::new_strat_only(strategy_sharder);
 
-    thread::spawn(move || {
-        regret_provider.run();
-    });
-    thread::spawn(move || {
-        strat_provider.run();
-    });
+    //let the providers run
+    //if we want to stop them, we'll have to send a Request::Close
+    for mut provider in regret_providers.into_iter() {
+        thread::spawn(move || {
+            provider.run();
+        });
+    }
+    for mut provider in strategy_providers.into_iter() {
+        thread::spawn(move || {
+            provider.run();
+        });
+    }
 
+    //training
     println!("num cfrs {}", cfrs.len());
     let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
         println!("starting thread {}", tid);
@@ -59,6 +83,7 @@ fn do_cfr() {
         child.join().unwrap();
     }
 
+    //playing games
     for _ in 0..10 {
         println!("---------------------------");
         let mut game = get_game();
