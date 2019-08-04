@@ -8,6 +8,35 @@ pub enum Player {
     P2,
 }
 
+impl Player {
+    /// Gets the opposite player
+    pub fn other(&self) -> Player {
+        match self {
+            Player::P1 => Player::P2,
+            Player::P2 => Player::P1,
+        }
+    }
+
+    /// Returns a mutable reference to either member of a 2-tuple
+    /// 
+    /// This allows you to use tuples for P1 and P2 instead of p1_val, p2_val everywhere
+    pub fn lens_mut<'a, T>(&self, tuple: &'a mut (T,T)) -> &'a mut T {
+        match self {
+            Player::P1 => &mut tuple.0,
+            Player::P2 => &mut tuple.1,
+        }
+    }
+    /// Returns a mutable reference to either member of a 2-tuple
+    /// 
+    /// This allows you to use tuples for P1 and P2 instead of p1_val, p2_val everywhere
+    pub fn lens<'a, T>(&self, tuple: &'a (T,T)) -> &'a T {
+        match self {
+            Player::P1 => &tuple.0,
+            Player::P2 => &tuple.1,
+        }
+    }
+}
+
 pub struct Infoset {
     pub infoset: Vec<u64>,
     pub hash: u64,
