@@ -4,8 +4,6 @@ use std::thread;
 use rand::distributions::Distribution;
 
 mod game;
-mod tictactoe;
-mod rps;
 mod cfr;
 mod regret;
 
@@ -21,8 +19,8 @@ pub fn run() {
 
 fn do_cfr() {
 
-    //let get_game = || rps::RockPaperScissors::new();
-    let get_game = || tictactoe::TicTacToe::new();
+    //let get_game = || game::RockPaperScissors::new();
+    let get_game = || game::TicTacToe::new();
 
     let num_threads = 20;
     let num_shards = 8;

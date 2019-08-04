@@ -1,13 +1,12 @@
 use rand::distributions::Distribution;
 use crate::game::{Game, Player, Infoset};
 use crate::regret;
-use crate::regret::regret_sharder;
 
 pub struct CounterFactualRegret {
     //regret_handler: Option<regret::RegretHandler>,
-    regret_handler: Option<regret_sharder::RegretSharder>,
+    regret_handler: Option<regret::RegretSharder>,
     //strat_handler: regret::RegretHandler,
-    strat_handler: regret_sharder::RegretSharder,
+    strat_handler: regret::RegretSharder,
 
     on_player: Player,
 
@@ -17,7 +16,7 @@ pub struct CounterFactualRegret {
 
 impl CounterFactualRegret {
 
-    pub fn new(regret_sharder: regret_sharder::RegretSharder, strategy_sharder: regret_sharder::RegretSharder) -> CounterFactualRegret {
+    pub fn new(regret_sharder: regret::RegretSharder, strategy_sharder: regret::RegretSharder) -> CounterFactualRegret {
         CounterFactualRegret {
             regret_handler: Some(regret_sharder),
             strat_handler: strategy_sharder,
@@ -27,7 +26,7 @@ impl CounterFactualRegret {
         }
     }
 
-    pub fn new_strat_only(strategy_sharder: regret_sharder::RegretSharder) -> CounterFactualRegret {
+    pub fn new_strat_only(strategy_sharder: regret::RegretSharder) -> CounterFactualRegret {
         CounterFactualRegret {
             regret_handler: None,
             strat_handler: strategy_sharder,
@@ -128,7 +127,7 @@ impl CounterFactualRegret {
         CounterFactualRegret::regret_match(&regret_handler, player, infoset, num_actions)
     }
 
-    fn regret_match(regret_handler: &regret_sharder::RegretSharder, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
+    fn regret_match(regret_handler: &regret::RegretSharder, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
     {
         let regret_response = regret_handler.get_regret(player, infoset.hash)
             .expect("Failed to get regret");
