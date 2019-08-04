@@ -20,10 +20,13 @@ pub fn run() {
 fn do_cfr() {
 
     //let get_game = || game::RockPaperScissors::new();
-    let get_game = || game::TicTacToe::new();
+    //let get_game = || game::TicTacToe::new();
+    let get_game = || game::OneCardPoker::new();
 
-    let num_threads = 20;
-    let num_shards = 8;
+    //TODO have a better configuration method
+    let num_threads = 1;
+    let num_shards = 1;
+    let num_iterations = 100;
 
     //each provider will hold part of the regret table
     let mut regret_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
@@ -69,7 +72,7 @@ fn do_cfr() {
     let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
         println!("starting thread {}", tid);
         thread::spawn(move || {
-            for i in 0..1000 {
+            for i in 0..num_iterations {
                 let game = get_game();
                 cfr.set_iteration(i);
                 cfr.search(game);
