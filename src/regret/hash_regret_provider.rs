@@ -59,15 +59,13 @@ impl HashRegretProvider {
             .or_insert(vec![0.0; delta.regret_delta.len()]);
 
         for (r, d) in regret.iter_mut().zip(delta.regret_delta.iter()) {
-            *r += d
+            //*r += d
             //x = x * (n-1)/n + y is proportional to x += n * y
             //but more numerically stable
-            /*
             *r = *r * (delta.iteration as f64) / (delta.iteration as f64 + 1.0) + d;
             if *r < 0.0 {
                 *r = 0.0;
             }
-            */
         }
     }
     

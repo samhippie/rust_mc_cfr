@@ -25,13 +25,13 @@ fn do_cfr() {
 
     //TODO have a better configuration method
     let num_threads = 24;
-    let num_shards = 16;
+    let num_shards = 6;
     let num_iterations = 10_000_000;
     let num_games = 20;
-    println!("agent threads: {}", num_threads);
-    println!("regret provider threads: {}", num_shards);
-    println!("strategy provider threads: {}", num_shards);
-    println!("iterations: {}", num_iterations);
+    //println!("agent threads: {}", num_threads);
+    //println!("regret provider threads: {}", num_shards);
+    //println!("strategy provider threads: {}", num_shards);
+    //println!("iterations: {}", num_iterations);
 
 
     //each provider will hold part of the regret table
@@ -89,12 +89,70 @@ fn do_cfr() {
     }
 
     //playing games
+    /*
     for _ in 0..num_games {
         println!("---------------------------");
         let mut game = get_game();
         play_cfr_game(&mut game, &strat_cfr);
     }
+    */
+    print_ocp_table(&strat_cfr);
 
+
+}
+
+//generate table like http://www.cs.cmu.edu/~ggordon/poker/
+pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
+    let num_cards = 13;
+
+    print!("label,");
+    for hand1 in 0..num_cards {
+        print!("{},", hand1);
+    }
+    println!("");
+
+    print!("on pass,");
+    for hand2 in 0..num_cards {
+        let mut game = game::OneCardPoker::manual_new((0, hand2), game::Player::P2);
+        game.take_turn(game::Player::P1, &game::OneCardPokerAction::Call);
+        let probs = cfr.get_avg_strategy(game::Player::P2, &game.get_infoset(game::Player::P2), 2).unwrap();
+        print!("{},", probs[1]);
+    }
+    println!("");
+
+    print!("on bet,");
+    for hand2 in 0..num_cards {
+        let mut game = game::OneCardPoker::manual_new((0, hand2), game::Player::P2);
+        game.take_turn(game::Player::P1, &game::OneCardPokerAction::Bet);
+        let probs = cfr.get_avg_strategy(game::Player::P2, &game.get_infoset(game::Player::P2), 2).unwrap();
+        print!("{},", probs[1]);
+    }
+    println!("");
+
+    println!("");
+
+    print!("label,");
+    for hand1 in 0..num_cards {
+        print!("{},", hand1);
+    }
+    println!("");
+
+    print!("1st round,");
+    for hand1 in 0..num_cards {
+        let game = game::OneCardPoker::manual_new((hand1, 0), game::Player::P2);
+        let probs = cfr.get_avg_strategy(game::Player::P1, &game.get_infoset(game::Player::P1), 2).unwrap();
+        print!("{},", probs[1]);
+    }
+    println!("");
+    print!("2nd round,");
+    for hand1 in 0..num_cards {
+        let mut game = game::OneCardPoker::manual_new((hand1, 0), game::Player::P2);
+        game.take_turn(game::Player::P1, &game::OneCardPokerAction::Call);
+        game.take_turn(game::Player::P2, &game::OneCardPokerAction::Bet);
+        let probs = cfr.get_avg_strategy(game::Player::P1, &game.get_infoset(game::Player::P1), 2).unwrap();
+        print!("{},", probs[1]);
+    }
+    println!("");
 
 }
 

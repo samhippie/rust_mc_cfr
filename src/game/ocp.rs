@@ -36,8 +36,8 @@ fn state_to_actions(state: PokerState) -> Vec<Action> {
     match state {
         PokerState::P1Deal => vec![Action::Call, Action::Bet],
         PokerState::P2Check => vec![Action::Call, Action::Bet],
-        PokerState::P1Raise => vec![Action::Call, Action::Fold],
-        PokerState::P2Bet => vec![Action::Call, Action::Fold],
+        PokerState::P1Raise => vec![Action::Fold, Action::Call],
+        PokerState::P2Bet => vec![Action::Fold, Action::Call],
         _ => vec![],
     }
 }
@@ -67,15 +67,20 @@ impl OneCardPoker {
             false => Player::P2,
         };
 
+        OneCardPoker::manual_new((hand1, hand2), dealer)
+    }
+
+    pub fn manual_new(hands: (u32, u32), dealer: Player) -> OneCardPoker {
         OneCardPoker {
             dealer,
-            hands: (hand1, hand2),
+            hands: hands,
             pot: (1, 1),
             history: vec![],
             state: PokerState::P1Deal,
             current_player: dealer.other(),
             current_actions: state_to_actions(PokerState::P1Deal),
         }
+
     }
 }
 
@@ -175,10 +180,7 @@ mod tests {
 
     #[test]
     fn early_showdown() {
-        let mut game = OneCardPoker::new();
-        game.hands = (3,5);
-        game.dealer = Player::P1;
-        game.current_player = Player::P2;
+        let mut game = OneCardPoker::manual_new((3,5), Player::P1);
 
         game.take_turn(Player::P2, &Action::Call);
 
@@ -194,10 +196,7 @@ mod tests {
 
     #[test]
     fn early_p2_fold() {
-        let mut game = OneCardPoker::new();
-        game.hands = (3,5);
-        game.dealer = Player::P2;
-        game.current_player = Player::P1;
+        let mut game = OneCardPoker::manual_new((3,5), Player::P2);
 
         game.take_turn(Player::P1, &Action::Bet);
 
@@ -213,10 +212,7 @@ mod tests {
 
     #[test]
     fn late_p2_fold() {
-        let mut game = OneCardPoker::new();
-        game.hands = (3,5);
-        game.dealer = Player::P1;
-        game.current_player = Player::P2;
+        let mut game = OneCardPoker::manual_new((3,5), Player::P1);
 
         game.take_turn(Player::P2, &Action::Call);
         game.take_turn(Player::P1, &Action::Bet);
@@ -233,10 +229,7 @@ mod tests {
 
     #[test]
     fn late_p1_fold() {
-        let mut game = OneCardPoker::new();
-        game.hands = (3,5);
-        game.dealer = Player::P2;
-        game.current_player = Player::P1;
+        let mut game = OneCardPoker::manual_new((3,5), Player::P2);
 
         game.take_turn(Player::P1, &Action::Call);
         game.take_turn(Player::P2, &Action::Bet);
@@ -253,10 +246,7 @@ mod tests {
 
     #[test]
     fn late_showdown() {
-        let mut game = OneCardPoker::new();
-        game.hands = (5,3);
-        game.dealer = Player::P1;
-        game.current_player = Player::P2;
+        let mut game = OneCardPoker::manual_new((5,3), Player::P1);
 
         game.take_turn(Player::P2, &Action::Call);
         game.take_turn(Player::P1, &Action::Bet);
