@@ -24,9 +24,15 @@ fn do_cfr() {
     let get_game = || game::OneCardPoker::new();
 
     //TODO have a better configuration method
-    let num_threads = 1;
-    let num_shards = 1;
-    let num_iterations = 100;
+    let num_threads = 24;
+    let num_shards = 16;
+    let num_iterations = 10_000_000;
+    let num_games = 20;
+    println!("agent threads: {}", num_threads);
+    println!("regret provider threads: {}", num_shards);
+    println!("strategy provider threads: {}", num_shards);
+    println!("iterations: {}", num_iterations);
+
 
     //each provider will hold part of the regret table
     let mut regret_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
@@ -68,9 +74,7 @@ fn do_cfr() {
     }
 
     //training
-    println!("num cfrs {}", cfrs.len());
     let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
-        println!("starting thread {}", tid);
         thread::spawn(move || {
             for i in 0..num_iterations {
                 let game = get_game();
@@ -85,7 +89,7 @@ fn do_cfr() {
     }
 
     //playing games
-    for _ in 0..10 {
+    for _ in 0..num_games {
         println!("---------------------------");
         let mut game = get_game();
         play_cfr_game(&mut game, &strat_cfr);
