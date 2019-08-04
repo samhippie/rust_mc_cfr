@@ -96,7 +96,7 @@ impl game::Game for TicTacToe {
 
 impl Display for TicTacToe {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "To move: {}\n", self.current_player)?;
+        write!(f, "To move: {}\n", space_to_string(Some(self.current_player)))?;
         for row in 0..3 {
             for col in 0..3 {
                 write!(f, "|{}", space_to_string(self.board[3 * row + col]))?;
@@ -107,19 +107,12 @@ impl Display for TicTacToe {
     }
 }
 
-impl Display for Player {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        let s = match self {
-            Player::P1 => "X",
-            Player::P2 => "O",
-        };
-        write!(f, "{}", s)
-    }
-}
+
 
 pub fn space_to_string(space: Option<Player>) -> String {
     match space {
-        Some(player) => player.to_string(),
+        Some(Player::P1) => String::from("X"),
+        Some(Player::P2) => String::from("O"),
         None => String::from("_"),
     }
 }

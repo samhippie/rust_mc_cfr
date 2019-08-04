@@ -98,6 +98,7 @@ pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cf
     let mut rng = rand::thread_rng();
 
     loop {
+        println!();
         println!("{}", game);
         match game.get_reward() {
             None => {
@@ -106,8 +107,10 @@ pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cf
                 let probs = cfr.get_avg_strategy(player, &infoset, actions.len())
                     .expect("Failed to get strategy probabilities");
 
-                println!("actions {:?}", actions);
-                println!("probs {:?}", probs);
+                println!("player {}", player);
+                for (action, prob) in actions.iter().zip(probs.iter()) {
+                    println!("action {}\tprob {}", action, prob);
+                }
 
                 let sampler = rand::distributions::WeightedIndex::new(&probs).unwrap();
                 let action_index = sampler.sample(&mut rng);

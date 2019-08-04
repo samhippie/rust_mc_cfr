@@ -37,6 +37,16 @@ impl Player {
     }
 }
 
+impl fmt::Display for Player {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
+            Player::P1 => "P1",
+            Player::P2 => "P2",
+        };
+        write!(f, "{}", s)
+    }
+}
+
 pub struct Infoset {
     pub infoset: Vec<u64>,
     pub hash: u64,
