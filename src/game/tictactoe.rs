@@ -1,6 +1,3 @@
-//TODO it would be nice to make the fact that an action is a usize an implementation detail
-//and the same for board being an array of player options
-
 use std::fmt::{Display, Formatter};
 
 use crate::game;
