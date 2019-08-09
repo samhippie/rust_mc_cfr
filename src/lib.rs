@@ -1,5 +1,6 @@
 use rand::seq::SliceRandom;
 use std::fmt;
+use std::hash;
 use std::thread;
 use rand::distributions::Distribution;
 
@@ -26,7 +27,7 @@ fn do_cfr() {
     //TODO have a better configuration method
     let num_threads = 24;
     let num_shards = 6;
-    let num_iterations = 10_000_000;
+    let num_iterations = 10_000;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
@@ -156,7 +157,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
 
 }
 
-pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
+pub fn play_cfr_game<A: fmt::Display + fmt::Debug + hash::Hash>(game: &mut Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
     let mut rng = rand::thread_rng();
 
     loop {
@@ -190,7 +191,7 @@ pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cf
 }
 
 
-pub fn play_random_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>) {
+pub fn play_random_game<A: fmt::Display + fmt::Debug + hash::Hash>(game: &mut Game<Action=A>) {
     let mut rng = rand::thread_rng();
 
     loop {

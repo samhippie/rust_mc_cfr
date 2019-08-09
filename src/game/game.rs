@@ -2,7 +2,7 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::collections::hash_map::DefaultHasher;
 
-#[derive(PartialEq, Copy, Clone, Debug)]
+#[derive(PartialEq, Copy, Clone, Debug, Hash)]
 pub enum Player {
     P1,
     P2,
@@ -48,18 +48,16 @@ impl fmt::Display for Player {
 }
 
 pub struct Infoset {
-    pub infoset: Vec<u64>,
     pub hash: u64,
 }
 
 impl Infoset {
-    pub fn new(infoset: Vec<u64>) -> Infoset {
+    pub fn new<T: Hash>(infoset: T) -> Infoset {
         let mut hasher = DefaultHasher::new();
         infoset.hash(&mut hasher);
         let hash = hasher.finish();
 
         Infoset {
-            infoset,
             hash,
         }
     }
@@ -70,7 +68,7 @@ impl Infoset {
 /// Game is over when get_reward returns Some(reward) for player 1
 pub trait Game: fmt::Display {
 
-    type Action: fmt::Display + fmt::Debug;
+    type Action: fmt::Display + fmt::Debug + Hash;
 
     /// Returns player to move and all legal actions
     fn get_turn(&self) -> (Player, Vec<Self::Action>);

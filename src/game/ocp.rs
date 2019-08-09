@@ -7,7 +7,7 @@ use crate::game::{Game, Player, Infoset};
 
 const NUM_CARDS: u32 = 13;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Hash)]
 pub enum Action {
     Fold,
     Call,
@@ -145,14 +145,17 @@ impl Game for OneCardPoker {
 
     fn get_infoset(&self, player: Player) -> Infoset {
         //the player's hand is only known to them
-        let mut infoset = vec![*player.lens(&self.hands) as u64];
-        //the bet history is public
-        for (p, a) in self.history.iter() {
-            let a = *a as u64;
-            let p = *p as u64;
-            infoset.push((a << 1) | p);
-        }
-        Infoset::new(infoset)
+        let hand = *player.lens(&self.hands);
+
+        let bet_history: Vec<(Player, Action)> = if player == Player::P1 {
+            self.history.clone()
+        } else {
+            //swap so always from P1's perspective
+            self.history.iter().map(|(p, a)| {
+                (p.other(), *a)
+            }).collect()
+        };
+        Infoset::new((hand, bet_history))
     }
 }
 
@@ -185,9 +188,7 @@ mod tests {
         game.take_turn(Player::P2, &Action::Call);
 
         let infoset = game.get_infoset(Player::P2);
-        assert_eq!(infoset.infoset.len(), 2);
         let infoset = game.get_infoset(Player::P1);
-        assert_eq!(infoset.infoset.len(), 2);
 
         game.take_turn(Player::P1, &Action::Call);
         let reward = game.get_reward();
@@ -201,9 +202,7 @@ mod tests {
         game.take_turn(Player::P1, &Action::Bet);
 
         let infoset = game.get_infoset(Player::P2);
-        assert_eq!(infoset.infoset.len(), 2);
         let infoset = game.get_infoset(Player::P1);
-        assert_eq!(infoset.infoset.len(), 2);
 
         game.take_turn(Player::P2, &Action::Fold);
         let reward = game.get_reward();
@@ -218,9 +217,7 @@ mod tests {
         game.take_turn(Player::P1, &Action::Bet);
 
         let infoset = game.get_infoset(Player::P2);
-        assert_eq!(infoset.infoset.len(), 3);
         let infoset = game.get_infoset(Player::P1);
-        assert_eq!(infoset.infoset.len(), 3);
 
         game.take_turn(Player::P2, &Action::Fold);
         let reward = game.get_reward();
@@ -235,9 +232,7 @@ mod tests {
         game.take_turn(Player::P2, &Action::Bet);
 
         let infoset = game.get_infoset(Player::P1);
-        assert_eq!(infoset.infoset.len(), 3);
         let infoset = game.get_infoset(Player::P2);
-        assert_eq!(infoset.infoset.len(), 3);
 
         game.take_turn(Player::P1, &Action::Fold);
         let reward = game.get_reward();
@@ -252,9 +247,7 @@ mod tests {
         game.take_turn(Player::P1, &Action::Bet);
 
         let infoset = game.get_infoset(Player::P2);
-        assert_eq!(infoset.infoset.len(), 3);
         let infoset = game.get_infoset(Player::P1);
-        assert_eq!(infoset.infoset.len(), 3);
 
         game.take_turn(Player::P2, &Action::Call);
         let reward = game.get_reward();

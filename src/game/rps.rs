@@ -9,7 +9,7 @@ pub struct RockPaperScissors {
     p2_move: Option<Move>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Hash)]
 pub enum Move {
     Rock,
     Paper,
@@ -80,7 +80,7 @@ impl game::Game for RockPaperScissors {
 
     fn get_infoset(&self, _player: Player) -> game::Infoset {
         //there is no visible state
-        game::Infoset::new(vec![])
+        game::Infoset::new(0)
     }
 }
 

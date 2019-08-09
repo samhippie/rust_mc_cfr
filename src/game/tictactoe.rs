@@ -82,15 +82,7 @@ impl game::Game for TicTacToe {
     }
 
     fn get_infoset(&self, _player: Player) -> game::Infoset {
-        let infoset = self.history.iter().map(|(p, action)| {
-            let player_bit = match p {
-                Player::P1 => 0,
-                Player::P2 => 1,
-            };
-            //highest action is 8 = 2^3, so player is set in the next bit
-            (action | (player_bit << 4)) as u64
-        }).collect();
-        game::Infoset::new(infoset)
+        game::Infoset::new(self.history.clone())
     }
 }
 
@@ -254,8 +246,8 @@ mod tests {
         game.take_turn(Player::P1, &8);
         assert_eq!(game.get_reward(), Some(1.0));
         assert_eq!(game.history.len(), 5);
-        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 5);
-        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 5);
+        assert_eq!(game.get_infoset(Player::P1).hash,
+            game.get_infoset(Player::P2).hash);
     }
 
     #[test]
@@ -272,7 +264,7 @@ mod tests {
         game.take_turn(Player::P1, &8);
         assert_eq!(game.get_reward(), Some(0.0));
         assert_eq!(game.history.len(), 9);
-        assert_eq!(game.get_infoset(Player::P1).infoset.len(), 9);
-        assert_eq!(game.get_infoset(Player::P2).infoset.len(), 9);
+        assert_eq!(game.get_infoset(Player::P1).hash,
+            game.get_infoset(Player::P2).hash);
     }
 }
