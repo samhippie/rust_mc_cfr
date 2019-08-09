@@ -157,7 +157,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
 
 }
 
-pub fn play_cfr_game<A: fmt::Display + fmt::Debug + hash::Hash>(game: &mut Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
+pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
     let mut rng = rand::thread_rng();
 
     loop {
@@ -191,7 +191,7 @@ pub fn play_cfr_game<A: fmt::Display + fmt::Debug + hash::Hash>(game: &mut Game<
 }
 
 
-pub fn play_random_game<A: fmt::Display + fmt::Debug + hash::Hash>(game: &mut Game<Action=A>) {
+pub fn play_random_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>) {
     let mut rng = rand::thread_rng();
 
     loop {

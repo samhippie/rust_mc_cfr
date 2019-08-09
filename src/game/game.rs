@@ -68,7 +68,7 @@ impl Infoset {
 /// Game is over when get_reward returns Some(reward) for player 1
 pub trait Game: fmt::Display {
 
-    type Action: fmt::Display + fmt::Debug + Hash;
+    type Action: fmt::Display + fmt::Debug;
 
     /// Returns player to move and all legal actions
     fn get_turn(&self) -> (Player, Vec<Self::Action>);
