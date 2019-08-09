@@ -26,7 +26,7 @@ impl Player {
             Player::P2 => &mut tuple.1,
         }
     }
-    /// Returns a mutable reference to either member of a 2-tuple
+    /// Returns a reference to either member of a 2-tuple
     /// 
     /// This allows you to use tuples for P1 and P2 instead of p1_val, p2_val everywhere
     pub fn lens<'a, T>(&self, tuple: &'a (T,T)) -> &'a T {
