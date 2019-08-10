@@ -131,14 +131,14 @@ impl Game for OneCardPoker {
         self.history.push((player, *action));
     }
 
-    fn get_reward(&self) -> Option<f64> {
+    fn get_reward(&self) -> Option<f32> {
         //the reward is the other player's contribution to the pot
         //divide by 2 to put the rewards between -1 and 1
         match self.state {
-            PokerState::FoldEnd if self.current_player == Player::P1 => Some(self.pot.1 as f64 / 2.0),
-            PokerState::FoldEnd if self.current_player == Player::P2 => Some(-1.0 * self.pot.0 as f64 / 2.0),
-            PokerState::ShowdownEnd if self.hands.0 > self.hands.1 => Some(self.pot.1 as f64 / 2.0),
-            PokerState::ShowdownEnd => Some(-1.0 * self.pot.0 as f64 / 2.0),
+            PokerState::FoldEnd if self.current_player == Player::P1 => Some(self.pot.1 as f32 / 2.0),
+            PokerState::FoldEnd if self.current_player == Player::P2 => Some(-1.0 * self.pot.0 as f32 / 2.0),
+            PokerState::ShowdownEnd if self.hands.0 > self.hands.1 => Some(self.pot.1 as f32 / 2.0),
+            PokerState::ShowdownEnd => Some(-1.0 * self.pot.0 as f32 / 2.0),
             _ => None,
         }
     }

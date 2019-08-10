@@ -4,7 +4,7 @@ use std::error;
 use crate::game::Player;
 
 pub struct RegretResponse {
-    pub regret: Option<Vec<f64>>,
+    pub regret: Option<Vec<f32>>,
 }
 
 pub struct RegretRequest {
@@ -16,7 +16,7 @@ pub struct RegretRequest {
 pub struct RegretDelta {
     pub player: Player,
     pub infoset_hash: u64,
-    pub regret_delta: Vec<f64>,
+    pub regret_delta: Vec<f32>,
     pub iteration: i32,
 }
 
@@ -51,7 +51,7 @@ impl RegretHandler {
         Ok(rsp)
     }
 
-    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f64>, iteration: i32) -> Result<(), mpsc::SendError<Request>> {
+    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f32>, iteration: i32) -> Result<(), mpsc::SendError<Request>> {
         self.requester.send(Request::Delta(RegretDelta {
             player,
             infoset_hash,

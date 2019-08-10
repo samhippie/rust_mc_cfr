@@ -15,8 +15,10 @@ pub struct HashRegretProvider {
     //which sender's we've sent Response::Closed to
     closed_senders: Vec<bool>,
 
-    p1_regrets: HashMap<u64, Vec<f64>>,
-    p2_regrets: HashMap<u64, Vec<f64>>,
+    p1_regrets: HashMap<u64, Vec<f32>>,
+    p2_regrets: HashMap<u64, Vec<f32>>,
+
+    has_printed_size_debug: bool,
 }
 
 impl HashRegretProvider {
@@ -32,6 +34,8 @@ impl HashRegretProvider {
 
             p1_regrets: HashMap::new(),
             p2_regrets: HashMap::new(),
+
+            has_printed_size_debug: false,
         }
     }
 
@@ -51,6 +55,16 @@ impl HashRegretProvider {
     }
 
     fn handle_regret_delta(&mut self, delta: RegretDelta) {
+        //0 or 1 actions, nothing to do
+        if delta.regret_delta.len() < 2 {
+            return;
+        }
+
+        if delta.iteration == 99 && !self.has_printed_size_debug {
+            println!("p1 {}\n p2 {}", self.p1_regrets.len(), self.p2_regrets.len());
+            self.has_printed_size_debug = true;
+        }
+
         let regrets = match delta.player {
             Player::P1 => &mut self.p1_regrets,
             Player::P2 => &mut self.p2_regrets,
@@ -62,7 +76,7 @@ impl HashRegretProvider {
             //*r += d
             //x = x * (n-1)/n + y is proportional to x += n * y
             //but more numerically stable
-            *r = *r * (delta.iteration as f64) / (delta.iteration as f64 + 1.0) + d;
+            *r = *r * (delta.iteration as f32) / (delta.iteration as f32 + 1.0) + d;
             if *r < 0.0 {
                 *r = 0.0;
             }

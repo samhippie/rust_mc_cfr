@@ -26,8 +26,8 @@ fn do_cfr() {
 
     //TODO have a better configuration method
     let num_threads = 20;
-    let num_shards = 3;
-    let num_iterations = 10_000;
+    let num_shards = 6;
+    let num_iterations = 1;//00;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
@@ -79,7 +79,7 @@ fn do_cfr() {
         thread::spawn(move || {
             for i in 0..num_iterations {
                 if tid == 0 {
-                    println!("iteration {}", i);
+                    println!("tid {} iteration {}", tid, i);
                 }
                 let game = get_game();
                 cfr.set_iteration(i);
@@ -180,7 +180,7 @@ pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cf
                 let action_index = sampler.sample(&mut rng);
                 let action = &actions[action_index];
 
-                println!("Taking action {}", action);
+                println!("***Taking action {}", action);
                 game.take_turn(player, action);
             },
             Some(reward) => {

@@ -27,7 +27,7 @@ impl RegretSharder {
         handler.get_regret(player, infoset_hash)
     }
 
-    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f64>, iteration: i32) -> Result<(), mpsc::SendError<Request>> {
+    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f32>, iteration: i32) -> Result<(), mpsc::SendError<Request>> {
         let handler_index = infoset_hash as usize % self.regret_handlers.len();
         let handler = &self.regret_handlers[handler_index];
         handler.send_delta(player, infoset_hash, regret_delta, iteration)

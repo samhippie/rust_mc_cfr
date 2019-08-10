@@ -48,7 +48,7 @@ impl game::Game for RockPaperScissors {
         *player_move = Some(*action);
     }
 
-    fn get_reward(&self) -> Option<f64> {
+    fn get_reward(&self) -> Option<f32> {
         let p1_move = match self.p1_move {
             Some(m) => m,
             None => return None,

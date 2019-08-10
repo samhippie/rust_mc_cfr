@@ -4,7 +4,7 @@ use rand::Rng;
 use crate::game::{Game, Player, Infoset};
 
 #[derive(Copy, Clone, Debug, PartialEq)]
-enum Card {
+pub enum Card {
     Skull,
     Flower,
 }
@@ -61,7 +61,7 @@ impl Skulls {
 
     pub fn manual_new(player: Player) -> Skulls {
         Skulls {
-            hands: (Hand { skulls: 1, flowers: 3}, Hand { skulls: 1, flowers: 3}),
+            hands: (Hand { skulls: 1, flowers: /*3*/2}, Hand { skulls: 1, flowers: /*3*/2}),
             game_state: GameState::PreStack { player },
             stacks: (vec![], vec![]),
             has_flipped: (false, false),
@@ -186,7 +186,7 @@ impl Game for Skulls {
         self.game_state = new_state;
     }
 
-    fn get_reward(&self) -> Option<f64> {
+    fn get_reward(&self) -> Option<f32> {
         if let GameState::End { winner } = self.game_state {
             Some(*winner.lens(&(1.0, -1.0)))
         } else {
@@ -245,7 +245,7 @@ fn board_to_bid_actions(current_bid: usize, stacks: &(Vec<Card>, Vec<Card>)) -> 
     } else {
         Some(Action::Pass)
     };
-    let bids = (current_bid+1 ..= num_cards).map(|amount| {
+    let bids = ((current_bid+1) ..= num_cards).map(|amount| {
         Action::Bid { amount }
     });
     maybe_pass.into_iter().chain(bids).collect()
@@ -266,6 +266,7 @@ impl fmt::Display for Skulls {
         writeln!(f, "hands {:?}", self.hands)?;
         writeln!(f, "stacks {:?}", self.stacks)?;
         writeln!(f, "state {:?}", self.game_state)?;
+        writeln!(f, "has flipped {:?}", self.has_flipped)?;
         Ok(())
     }
 }
@@ -282,7 +283,7 @@ mod tests {
     use super::*;
     use crate::game::*;
 
-    fn wins_game_flipping(player: Player) -> Option<f64> {
+    fn wins_game_flipping(player: Player) -> Option<f32> {
         let mut game = Skulls::manual_new(player);
 
         //prestack
@@ -349,7 +350,7 @@ mod tests {
     }
 
     //this is less assert-heavy, as the other function has a lot of calls to assert
-    fn loses_game_self_elimination(player: Player) -> Option<f64> {
+    fn loses_game_self_elimination(player: Player) -> Option<f32> {
         let mut game = Skulls::manual_new(player);
 
         for i in 0..3 {

@@ -47,7 +47,7 @@ impl CounterFactualRegret {
         };
     }
 
-    pub fn search<T>(&mut self, mut game: T) -> Option<f64>
+    pub fn search<T>(&mut self, mut game: T) -> Option<f32>
         where T: Game + Clone
     {
         if self.verbose {
@@ -71,18 +71,19 @@ impl CounterFactualRegret {
         if player == self.on_player {
             let probs = self.get_iter_strategy(player, &infoset, actions.len())?;
 
-            let rewards: Option<Vec<f64>> = actions.iter().map(|action| {
+            let rewards: Option<Vec<f32>> = actions.into_iter().map(|action| {
                 let mut subgame = game.clone();
-                subgame.take_turn(player, action);
+                subgame.take_turn(player, &action);
                 self.search(subgame)
             }).collect();
             let rewards = rewards?;
 
-            let expected_value: f64 = probs.iter().zip(rewards.iter())
+            let expected_value: f32 = probs.iter().zip(rewards.iter())
                 .map(|(p, r)| p * r)
                 .sum();
-            let regrets = rewards.iter().map(|r| r - expected_value).collect();
+            let regrets = rewards.into_iter().map(|r| r - expected_value).collect();
 
+            /*
             if self.verbose {
                 println!("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 println!("{}", game);
@@ -92,6 +93,7 @@ impl CounterFactualRegret {
                 println!("regrets {:?}", regrets);
                 println!("expected value {:?}", expected_value);
             }
+            */
 
             self.regret_handler
                 .as_mut()
@@ -116,18 +118,18 @@ impl CounterFactualRegret {
         }
     }
 
-    pub fn get_avg_strategy(&self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>> {
+    pub fn get_avg_strategy(&self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>> {
         CounterFactualRegret::regret_match(&self.strat_handler, player, infoset, num_actions)
     }
 
-    fn get_iter_strategy(&mut self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>> {
+    fn get_iter_strategy(&mut self, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>> {
         let regret_handler = self.regret_handler
             .as_mut()
             .expect("Tried to get iter stategy in a strategy-only cfr instance");
         CounterFactualRegret::regret_match(&regret_handler, player, infoset, num_actions)
     }
 
-    fn regret_match(regret_handler: &regret::RegretSharder, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f64>>
+    fn regret_match(regret_handler: &regret::RegretSharder, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>>
     {
         let regret_response = regret_handler.get_regret(player, infoset.hash)
             .expect("Failed to get regret");
@@ -145,15 +147,15 @@ impl CounterFactualRegret {
         //println!("infoset hash {}", infoset.hash);
         //println!("actual regrets {:?}", regrets);
 
-        let pos_regrets: Vec<f64> = regrets.iter().map(|&regret| {
+        let pos_regrets: Vec<f32> = regrets.iter().map(|&regret| {
             if regret > 0.0 {
-                regret as f64
+                regret as f32
             } else {
                 0.0
             }
         }).collect();
 
-        let regret_sum: f64 = pos_regrets.iter().sum();
+        let regret_sum: f32 = pos_regrets.iter().sum();
 
         if regret_sum > 0.0 {
             let probs = pos_regrets.into_iter().map(|regret| {
@@ -161,7 +163,7 @@ impl CounterFactualRegret {
             }).collect();
             Some(probs)
         } else {
-            let num = num_actions as f64;
+            let num = num_actions as f32;
             let probs = vec![1.0 / num; num_actions];
             Some(probs)
         }

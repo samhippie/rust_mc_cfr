@@ -92,7 +92,7 @@ pub trait Game: fmt::Display {
     /// Returns None if the game is not over
     /// 
     /// Otherwise returns the reward for Player 1
-    fn get_reward(&self) -> Option<f64>;
+    fn get_reward(&self) -> Option<f32>;
 
     /// Returns a player's infoset as a vector of hashes
     /// 
