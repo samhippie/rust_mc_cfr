@@ -35,6 +35,17 @@ impl Player {
             Player::P2 => &tuple.1,
         }
     }
+
+    /// Returns P1 if the given player matches the current player, P2 otherwise
+    /// 
+    /// This is for when you want a player to see themself as P1
+    pub fn view(&self, other: Player) -> Player {
+        if *self == other {
+            Player::P1
+        } else {
+            Player::P2
+        }
+    }
 }
 
 impl fmt::Display for Player {
