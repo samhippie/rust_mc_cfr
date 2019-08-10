@@ -111,7 +111,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
     for hand1 in 0..num_cards {
         print!("{},", hand1);
     }
-    println!("");
+    println!();
 
     print!("on pass,");
     for hand2 in 0..num_cards {
@@ -120,7 +120,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
         let probs = cfr.get_avg_strategy(game::Player::P2, &game.get_infoset(game::Player::P2), 2).unwrap();
         print!("{},", probs[1]);
     }
-    println!("");
+    println!();
 
     print!("on bet,");
     for hand2 in 0..num_cards {
@@ -129,15 +129,15 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
         let probs = cfr.get_avg_strategy(game::Player::P2, &game.get_infoset(game::Player::P2), 2).unwrap();
         print!("{},", probs[1]);
     }
-    println!("");
+    println!();
 
-    println!("");
+    println!();
 
     print!("label,");
     for hand1 in 0..num_cards {
         print!("{},", hand1);
     }
-    println!("");
+    println!();
 
     print!("1st round,");
     for hand1 in 0..num_cards {
@@ -145,7 +145,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
         let probs = cfr.get_avg_strategy(game::Player::P1, &game.get_infoset(game::Player::P1), 2).unwrap();
         print!("{},", probs[1]);
     }
-    println!("");
+    println!();
     print!("2nd round,");
     for hand1 in 0..num_cards {
         let mut game = game::OneCardPoker::manual_new((hand1, 0), game::Player::P2);
@@ -154,7 +154,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
         let probs = cfr.get_avg_strategy(game::Player::P1, &game.get_infoset(game::Player::P1), 2).unwrap();
         print!("{},", probs[1]);
     }
-    println!("");
+    println!();
 
 }
 

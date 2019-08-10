@@ -88,12 +88,12 @@ impl game::Game for TicTacToe {
 
 impl Display for TicTacToe {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "To move: {}\n", space_to_string(Some(self.current_player)))?;
+        writeln!(f, "To move: {}", space_to_string(Some(self.current_player)))?;
         for row in 0..3 {
             for col in 0..3 {
                 write!(f, "|{}", space_to_string(self.board[3 * row + col]))?;
             }
-            write!(f, "\n")?;
+            writeln!(f)?;
         }
         Ok(())
     }
@@ -155,7 +155,7 @@ mod tests {
         ];
         let game = TicTacToe {
             history: vec![],
-            board: board,
+            board,
             current_player: Player::P2,
         };
         assert_eq!(check_cols(&game), Some(Player::P1));
@@ -170,7 +170,7 @@ mod tests {
         ];
         let game = TicTacToe {
             history: vec![],
-            board: board,
+            board,
             current_player: Player::P2,
         };
         assert_eq!(check_cols(&game), None);
@@ -185,7 +185,7 @@ mod tests {
         ];
         let game = TicTacToe {
             history: vec![],
-            board: board,
+            board,
             current_player: Player::P2,
         };
         assert_eq!(check_rows(&game), Some(Player::P1));
@@ -200,7 +200,7 @@ mod tests {
         ];
         let game = TicTacToe {
             history: vec![],
-            board: board,
+            board,
             current_player: Player::P1,
         };
         assert_eq!(check_rows(&game), None);
@@ -215,7 +215,7 @@ mod tests {
         ];
         let game = TicTacToe {
             history: vec![],
-            board: board,
+            board,
             current_player: Player::P1,
         };
         assert_eq!(check_diagonals(&game), Some(Player::P2));
@@ -230,7 +230,7 @@ mod tests {
         ];
         let game = TicTacToe {
             history: vec![],
-            board: board,
+            board,
             current_player: Player::P1,
         };
         assert_eq!(check_diagonals(&game), None);

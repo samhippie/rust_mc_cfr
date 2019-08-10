@@ -10,7 +10,7 @@ pub enum Player {
 
 impl Player {
     /// Gets the opposite player
-    pub fn other(&self) -> Player {
+    pub fn other(self) -> Player {
         match self {
             Player::P1 => Player::P2,
             Player::P2 => Player::P1,
@@ -39,8 +39,8 @@ impl Player {
     /// Returns P1 if the given player matches the current player, P2 otherwise
     /// 
     /// This is for when you want a player to see themself as P1
-    pub fn view(&self, other: Player) -> Player {
-        if *self == other {
+    pub fn view(self, other: Player) -> Player {
+        if self == other {
             Player::P1
         } else {
             Player::P2

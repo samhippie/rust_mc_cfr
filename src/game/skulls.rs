@@ -88,9 +88,9 @@ impl Game for Skulls {
         let cur_player = player;
         let new_state = match (&self.game_state, action) {
             (GameState::PreStack { player }, Action::Stack { card }) if *player == cur_player => {
-                play_card(card, player.lens_mut(&mut self.stacks), player.lens_mut(&mut self.hands));
+                play_card(*card, player.lens_mut(&mut self.stacks), player.lens_mut(&mut self.hands));
 
-                if player.other().lens(&self.stacks).len() == 0 {
+                if player.other().lens(&self.stacks).is_empty() {
                     GameState::PreStack { player: player.other() }
                 } else {
                     GameState::Stack { player: player.other() }
@@ -98,7 +98,7 @@ impl Game for Skulls {
             },
 
             (GameState::Stack { player }, Action::Stack { card }) if *player == cur_player => {
-                play_card(card, player.lens_mut(&mut self.stacks), player.lens_mut(&mut self.hands));
+                play_card(*card, player.lens_mut(&mut self.stacks), player.lens_mut(&mut self.hands));
                 GameState::Stack { player: player.other() }
             },
             (GameState::Stack { player }, Action::Bid { amount }) if *player == cur_player => GameState::Bid { amount: *amount, leader: *player, player: player.other(), has_passed: false },
@@ -112,7 +112,7 @@ impl Game for Skulls {
             (GameState::Bid { amount, leader, player, has_passed: true, .. }, Action::Pass) if *player == cur_player => {
 
                 //restore hands based on stacks
-                for p in [Player::P1, Player::P2].into_iter() {
+                for p in [Player::P1, Player::P2].iter() {
                     for card in p.lens(&self.stacks) {
                         match card {
                             Card::Flower => p.lens_mut(&mut self.hands).flowers += 1,
@@ -169,14 +169,12 @@ impl Game for Skulls {
                     } else {
                         GameState::PreStack { player: *leader }
                     }
-                } else {
-                    if *leader.lens(&self.has_flipped) {
+                } else if *leader.lens(&self.has_flipped) {
                         GameState::End { winner: *leader }
-                    } else {
-                        *leader.lens_mut(&mut self.has_flipped) = true;
-                        self.history.push(HistoryEntry::GetPoint(*leader));
-                        GameState::PreStack { player: *leader }
-                    }
+                } else {
+                    *leader.lens_mut(&mut self.has_flipped) = true;
+                    self.history.push(HistoryEntry::GetPoint(*leader));
+                    GameState::PreStack { player: *leader }
                 }
             },
 
@@ -251,9 +249,9 @@ fn board_to_bid_actions(current_bid: usize, stacks: &(Vec<Card>, Vec<Card>)) -> 
     maybe_pass.into_iter().chain(bids).collect()
 }
 
-fn play_card(card: &Card, stack: &mut Vec<Card>, hand: &mut Hand) {
-    stack.push(*card);
-    if card == &Card::Skull {
+fn play_card(card: Card, stack: &mut Vec<Card>, hand: &mut Hand) {
+    stack.push(card);
+    if card == Card::Skull {
         hand.skulls -= 1;
     } else {
         hand.flowers -= 1;

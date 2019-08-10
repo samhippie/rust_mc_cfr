@@ -70,7 +70,7 @@ impl HashRegretProvider {
             Player::P2 => &mut self.p2_regrets,
         };
         let regret = regrets.entry(delta.infoset_hash)
-            .or_insert(vec![0.0; delta.regret_delta.len()]);
+            .or_insert_with(|| vec![0.0; delta.regret_delta.len()]);
 
         for (r, d) in regret.iter_mut().zip(delta.regret_delta.iter()) {
             //*r += d

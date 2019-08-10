@@ -62,9 +62,10 @@ impl OneCardPoker {
             hand2 += 1;
         }
 
-        let dealer = match rng.gen() {
-            true => Player::P1,
-            false => Player::P2,
+        let dealer = if rng.gen()  {
+            Player::P1
+        } else {
+            Player::P2
         };
 
         OneCardPoker::manual_new((hand1, hand2), dealer)
@@ -73,7 +74,7 @@ impl OneCardPoker {
     pub fn manual_new(hands: (u32, u32), dealer: Player) -> OneCardPoker {
         OneCardPoker {
             dealer,
-            hands: hands,
+            hands,
             pot: (1, 1),
             history: vec![],
             state: PokerState::P1Deal,
