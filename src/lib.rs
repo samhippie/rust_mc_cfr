@@ -1,6 +1,5 @@
 use rand::seq::SliceRandom;
 use std::fmt;
-use std::hash;
 use std::thread;
 use rand::distributions::Distribution;
 
@@ -22,11 +21,12 @@ fn do_cfr() {
 
     //let get_game = || game::RockPaperScissors::new();
     //let get_game = || game::TicTacToe::new();
-    let get_game = || game::OneCardPoker::new();
+    //let get_game = || game::OneCardPoker::new();
+    let get_game = || game::Skulls::new();
 
     //TODO have a better configuration method
-    let num_threads = 24;
-    let num_shards = 6;
+    let num_threads = 20;
+    let num_shards = 3;
     let num_iterations = 10_000;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
@@ -78,6 +78,9 @@ fn do_cfr() {
     let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
         thread::spawn(move || {
             for i in 0..num_iterations {
+                if tid == 0 {
+                    println!("iteration {}", i);
+                }
                 let game = get_game();
                 cfr.set_iteration(i);
                 cfr.search(game);
@@ -90,14 +93,12 @@ fn do_cfr() {
     }
 
     //playing games
-    /*
     for _ in 0..num_games {
         println!("---------------------------");
         let mut game = get_game();
         play_cfr_game(&mut game, &strat_cfr);
     }
-    */
-    print_ocp_table(&strat_cfr);
+    //print_ocp_table(&strat_cfr);
 
 
 }
