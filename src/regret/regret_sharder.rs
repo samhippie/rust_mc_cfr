@@ -2,7 +2,6 @@ use std::error;
 //use std::sync::mpsc;
 
 use crate::regret::regret_provider::{RegretProvider, RegretHandler, Response};
-use crate::regret::HashRegretProvider;
 use crate::game::Player;
 
 pub struct RegretSharder {
@@ -11,7 +10,7 @@ pub struct RegretSharder {
 
 //It'd be really nice if this just used RegretProvider instead of HashRegretProvider
 impl RegretSharder {
-    pub fn new(regret_providers: &mut Vec<HashRegretProvider>) -> RegretSharder {
+    pub fn new<T: RegretProvider>(regret_providers: &mut Vec<T>) -> RegretSharder {
         let regret_handlers = regret_providers.iter_mut()
             .map(|provider| provider.get_handler())
             .collect();
