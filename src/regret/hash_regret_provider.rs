@@ -1,17 +1,21 @@
 
 use std::collections::HashMap;
-use std::sync::mpsc;
+//use std::sync::mpsc;
+use crossbeam_channel;
 use crate::game::*;
 use crate::regret::regret_provider::*;
 
 pub struct HashRegretProvider {
     //we keep
-    request_receiver: mpsc::Receiver<Request>,
+    //request_receiver: mpsc::Receiver<Request>,
+    request_receiver: crossbeam_channel::Receiver<Request>,
     //copy goes out to each agent
-    request_sender: mpsc::Sender<Request>,
+    //request_sender: mpsc::Sender<Request>,
+    request_sender: crossbeam_channel::Sender<Request>,
 
     //we keep, agents have receiver
-    response_senders: Vec<mpsc::Sender<Response>>,
+    //response_senders: Vec<mpsc::Sender<Response>>,
+    response_senders: Vec<crossbeam_channel::Sender<Response>>,
     //which sender's we've sent Response::Closed to
     closed_senders: Vec<bool>,
 
@@ -23,7 +27,8 @@ pub struct HashRegretProvider {
 
 impl HashRegretProvider {
     pub fn new() -> HashRegretProvider {
-        let (request_sender, request_receiver) = mpsc::channel();
+        //let (request_sender, request_receiver) = mpsc::channel();
+        let (request_sender, request_receiver) = crossbeam_channel::unbounded();
 
         HashRegretProvider {
             request_sender,
@@ -98,7 +103,8 @@ impl RegretProvider for HashRegretProvider {
     fn get_handler(&mut self) -> RegretHandler {
         let request_sender = self.request_sender.clone();
 
-        let (response_sender, response_receiver) = mpsc::channel();
+        //let (response_sender, response_receiver) = mpsc::channel();
+        let (response_sender, response_receiver) = crossbeam_channel::unbounded();
         self.response_senders.push(response_sender);
         self.closed_senders.push(false);
 

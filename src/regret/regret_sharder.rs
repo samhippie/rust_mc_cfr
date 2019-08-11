@@ -1,5 +1,5 @@
 use std::error;
-use std::sync::mpsc;
+//use std::sync::mpsc;
 
 use crate::regret::regret_provider::{RegretProvider, RegretHandler, Response, Request};
 use crate::regret::HashRegretProvider;
@@ -27,7 +27,7 @@ impl RegretSharder {
         handler.get_regret(player, infoset_hash)
     }
 
-    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f32>, iteration: i32) -> Result<(), mpsc::SendError<Request>> {
+    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f32>, iteration: i32) -> Result<(), Box<error::Error>> {
         let handler_index = infoset_hash as usize % self.regret_handlers.len();
         let handler = &self.regret_handlers[handler_index];
         handler.send_delta(player, infoset_hash, regret_delta, iteration)

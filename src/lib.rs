@@ -25,9 +25,9 @@ fn do_cfr() {
     let get_game = || game::Skulls::new();
 
     //TODO have a better configuration method
-    let num_threads = 20;
-    let num_shards = 6;
-    let num_iterations = 1;//00;
+    let num_threads = 16;
+    let num_shards = 3;
+    let num_iterations = 100;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
