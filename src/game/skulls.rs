@@ -30,6 +30,7 @@ enum GameState {
 enum HistoryEntry {
     PlayerAction(Player, Action),
     Flip(Player, Player, Card),
+    LoseCard(Player, Card),
     GetPoint(Player),
 }
 
@@ -77,7 +78,9 @@ impl Game for Skulls {
         match self.game_state {
             GameState::PreStack { player } => (player, hand_to_stack_actions(player.lens(&self.hands))),
             GameState::Stack { player } => (player, [hand_to_stack_actions(player.lens(&self.hands)), board_to_bid_actions(0, &self.stacks)].concat()),
-            GameState::Bid { amount, player, .. } => (player, board_to_bid_actions(amount, &self.stacks)),
+            //if the player is the leader, then just pass, as there is no point in out-bidding yourself
+            GameState::Bid { amount, player, leader, .. } if leader != player => (player, board_to_bid_actions(amount, &self.stacks)),
+            GameState::Bid { player, .. } => (player, vec![Action::Pass]),
             GameState::End { winner } => (winner, vec![]),
         }
     }
@@ -132,16 +135,23 @@ impl Game for Skulls {
                 //seach for skull
                 let mut found_skull = false;
                 for (player, card) in flipped_cards {
-                    self.history.push(HistoryEntry::Flip(*leader, *player, *card));
+                    //normally we'd record all card flips
+                    //but I'm trying out only recording skull flips to save memory
+                    //because that lets us figure out the result of flipping sequences with minimal information
+                    //actually, it might sufficient to make the game state unique, which means that our memory usage will be the same
+                    //self.history.push(HistoryEntry::Flip(*leader, *player, *card));
                     if *card == Card::Skull {
+                        self.history.push(HistoryEntry::Flip(*leader, *player, *card));
                         found_skull = true;
                         let mut hand = leader.lens_mut(&mut self.hands);
                         if *player == *leader {
                             //remove flowers then skulls
                             if hand.flowers > 0 {
                                 hand.flowers -= 1;
+                                self.history.push(HistoryEntry::LoseCard(*leader, Card::Flower));
                             } else {
                                 hand.skulls -= 1;
+                                self.history.push(HistoryEntry::LoseCard(*leader, Card::Skull));
                             }
                         } else {
                             //remove randomly
@@ -149,8 +159,10 @@ impl Game for Skulls {
                             let remove_index = rand::thread_rng().gen_range(0, num_cards);
                             if remove_index < hand.flowers {
                                 hand.flowers -= 1;
+                                self.history.push(HistoryEntry::LoseCard(*leader, Card::Flower));
                             } else {
                                 hand.skulls -= 1;
+                                self.history.push(HistoryEntry::LoseCard(*leader, Card::Skull));
                             }
                         }
                         break;
@@ -214,6 +226,9 @@ impl Game for Skulls {
                     }
                 },
                 HistoryEntry::Flip(flipper, target, card) => (flipper, target, 4, card as usize),
+                //again, reserving 0 for unknown
+                HistoryEntry::LoseCard(flipper, card) if flipper == player => (flipper, flipper, 5, 1 + card as usize),
+                HistoryEntry::LoseCard(flipper, _) => (flipper, flipper, 5, 0),
             }
         })
         //change perspective so the player thinks they're P1
