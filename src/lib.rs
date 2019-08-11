@@ -27,7 +27,7 @@ fn do_cfr() {
     //TODO have a better configuration method
     let num_threads = 16;
     let num_shards = 3;
-    let num_iterations = 100;
+    let num_iterations = 1000;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
@@ -158,7 +158,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
 
 }
 
-pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
+pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut dyn Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
     let mut rng = rand::thread_rng();
 
     loop {
@@ -192,7 +192,7 @@ pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>, cf
 }
 
 
-pub fn play_random_game<A: fmt::Display + fmt::Debug>(game: &mut Game<Action=A>) {
+pub fn play_random_game<A: fmt::Display + fmt::Debug>(game: &mut dyn Game<Action=A>) {
     let mut rng = rand::thread_rng();
 
     loop {

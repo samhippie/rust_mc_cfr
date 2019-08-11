@@ -44,7 +44,7 @@ pub struct RegretHandler {
 }
 
 impl RegretHandler {
-    pub fn get_regret(&self, player: Player, infoset_hash: u64) -> Result<Response, Box<error::Error>> {
+    pub fn get_regret(&self, player: Player, infoset_hash: u64) -> Result<Response, Box<dyn error::Error>> {
         self.requester.try_send(Request::Regret(RegretRequest {
             player, 
             infoset_hash,
@@ -54,7 +54,7 @@ impl RegretHandler {
         Ok(rsp)
     }
 
-    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f32>, iteration: i32) -> Result<(), Box<error::Error>> {
+    pub fn send_delta(&self, player: Player, infoset_hash: u64, regret_delta: Vec<f32>, iteration: i32) -> Result<(), Box<dyn error::Error>> {
         self.requester.try_send(Request::Delta(RegretDelta {
             player,
             infoset_hash,
