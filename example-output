@@ -1,0 +1,4890 @@
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.8175959
+action Bid { amount: 2 }	prob 0.18240415
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.7033985
+action Stack { card: Skull }	prob 0.2966015
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.38158572
+action Stack { card: Skull }	prob 0.6184143
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.27312106
+action Bid { amount: 1 }	prob 0.6746242
+action Bid { amount: 2 }	prob 0.05225474
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.16599327
+action Stack { card: Skull }	prob 0.06766992
+action Bid { amount: 1 }	prob 0.40716925
+action Bid { amount: 2 }	prob 0.20911524
+action Bid { amount: 3 }	prob 0.15005238
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.39453822
+action Bid { amount: 2 }	prob 0.4340572
+action Bid { amount: 3 }	prob 0.17140463
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull, Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.40316057
+action Bid { amount: 3 }	prob 0.5968394
+***Taking action Bid { amount: 3 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull, Flower])
+state Bid { amount: 3, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull, Flower])
+state Bid { amount: 3, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.6327873
+action Stack { card: Skull }	prob 0.36721268
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.5452969
+action Stack { card: Skull }	prob 0.45470312
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Skull }	prob 0.08961575
+action Bid { amount: 1 }	prob 0.6290218
+action Bid { amount: 2 }	prob 0.28136244
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.8388759
+action Bid { amount: 2 }	prob 0.1611241
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.5745091
+action Stack { card: Skull }	prob 0.42549092
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.59497863
+action Stack { card: Skull }	prob 0.40502137
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 0.04078189
+action Bid { amount: 1 }	prob 0.47658074
+action Bid { amount: 2 }	prob 0.48263738
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.013674813
+action Stack { card: Skull }	prob 0.9863252
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Bid { amount: 1 }	prob 0.5
+action Bid { amount: 2 }	prob 0.5
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower, Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.30188012
+action Bid { amount: 1 }	prob 0.4075048
+action Bid { amount: 2 }	prob 0.23122412
+action Bid { amount: 3 }	prob 0.059390936
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower, Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.51983106
+action Bid { amount: 3 }	prob 0.48016897
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower, Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.7125872
+action Stack { card: Skull }	prob 0.28741285
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.48724508
+action Stack { card: Skull }	prob 0.51275486
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 0.086836696
+action Bid { amount: 1 }	prob 0.66614497
+action Bid { amount: 2 }	prob 0.24701835
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Flower, Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.53748536
+action Bid { amount: 1 }	prob 0.1764728
+action Bid { amount: 2 }	prob 0.19741452
+action Bid { amount: 3 }	prob 0.08862735
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Flower, Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.96283096
+action Bid { amount: 3 }	prob 0.03716903
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Flower, Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.73190415
+action Stack { card: Skull }	prob 0.2680959
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.44308302
+action Stack { card: Skull }	prob 0.556917
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Skull }	prob 0.05128749
+action Bid { amount: 1 }	prob 0.66384166
+action Bid { amount: 2 }	prob 0.28487077
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.9442494
+action Bid { amount: 2 }	prob 0.055750553
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.90670943
+action Stack { card: Skull }	prob 0.093290575
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.30707315
+action Stack { card: Skull }	prob 0.6929269
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.91259754
+action Bid { amount: 1 }	prob 0.08740244
+action Bid { amount: 2 }	prob 0
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Skull }	prob 0.26378524
+action Bid { amount: 1 }	prob 0.5668866
+action Bid { amount: 2 }	prob 0.11625821
+action Bid { amount: 3 }	prob 0.053069923
+***Taking action Bid { amount: 3 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower])
+state Bid { amount: 3, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower])
+state Bid { amount: 3, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 1
+action Stack { card: Skull }	prob 0
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Bid { amount: 1 }	prob 0.5
+action Bid { amount: 2 }	prob 0.5
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (true, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Flower, Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.26783657
+action Bid { amount: 1 }	prob 0.4885851
+action Bid { amount: 2 }	prob 0.16716057
+action Bid { amount: 3 }	prob 0.076417685
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Flower, Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.97024196
+action Bid { amount: 3 }	prob 0.02975808
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Flower, Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.6676644
+action Stack { card: Skull }	prob 0.33233562
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.50794077
+action Stack { card: Skull }	prob 0.4920592
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Skull }	prob 0.09647089
+action Bid { amount: 1 }	prob 0.63177913
+action Bid { amount: 2 }	prob 0.27174997
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.15676986
+action Bid { amount: 2 }	prob 0.8432301
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.7456362
+action Stack { card: Skull }	prob 0.25436375
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.5063639
+action Stack { card: Skull }	prob 0.49363604
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.19966333
+action Stack { card: Skull }	prob 0.2139588
+action Bid { amount: 1 }	prob 0.24263054
+action Bid { amount: 2 }	prob 0.34374735
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower, Flower])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Skull }	prob 0.08150263
+action Bid { amount: 1 }	prob 0.6029388
+action Bid { amount: 2 }	prob 0.18620735
+action Bid { amount: 3 }	prob 0.12935124
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.11548418
+action Bid { amount: 2 }	prob 0.62586504
+action Bid { amount: 3 }	prob 0.2586508
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower, Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.5611769
+action Bid { amount: 3 }	prob 0.43882316
+***Taking action Bid { amount: 3 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower, Flower])
+state Bid { amount: 3, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower, Flower])
+state Bid { amount: 3, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.57840794
+action Stack { card: Skull }	prob 0.421592
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.3105482
+action Stack { card: Skull }	prob 0.6894518
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 0.23405898
+action Bid { amount: 1 }	prob 0.49526304
+action Bid { amount: 2 }	prob 0.27067798
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 1
+action Stack { card: Skull }	prob 0
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Bid { amount: 1 }	prob 0.9456577
+action Bid { amount: 2 }	prob 0.054342374
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower, Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.17156316
+action Stack { card: Skull }	prob 0.10643875
+action Bid { amount: 1 }	prob 0.41334593
+action Bid { amount: 2 }	prob 0.18777934
+action Bid { amount: 3 }	prob 0.12087278
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower, Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.97281986
+action Bid { amount: 3 }	prob 0.027180064
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower, Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.68069947
+action Stack { card: Skull }	prob 0.31930053
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.6230727
+action Stack { card: Skull }	prob 0.37692732
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 0.07887399
+action Bid { amount: 1 }	prob 0.6094248
+action Bid { amount: 2 }	prob 0.31170124
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.75018203
+action Bid { amount: 2 }	prob 0.24981798
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5841422
+action Stack { card: Skull }	prob 0.41585773
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.69366103
+action Stack { card: Skull }	prob 0.30633897
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Skull }	prob 0.12799037
+action Bid { amount: 1 }	prob 0.7013286
+action Bid { amount: 2 }	prob 0.17068107
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.6830385
+action Stack { card: Skull }	prob 0.31696156
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.652067
+action Stack { card: Skull }	prob 0.3479329
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Skull }	prob 0.23632766
+action Bid { amount: 1 }	prob 0.4342747
+action Bid { amount: 2 }	prob 0.32939762
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Skull], [Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.41833377
+action Bid { amount: 1 }	prob 0.22615528
+action Bid { amount: 2 }	prob 0.17775549
+action Bid { amount: 3 }	prob 0.17775549
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Skull], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+action Bid { amount: 3 }	prob 0
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Skull], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5
+action Stack { card: Skull }	prob 0.5
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Bid { amount: 1 }	prob 0.5
+action Bid { amount: 2 }	prob 0.5
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (true, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.72871727
+action Stack { card: Skull }	prob 0.27128273
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.4625665
+action Stack { card: Skull }	prob 0.53743345
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.17739867
+action Stack { card: Skull }	prob 0.16873156
+action Bid { amount: 1 }	prob 0.29826194
+action Bid { amount: 2 }	prob 0.35560784
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.6226052
+action Stack { card: Skull }	prob 0.37739477
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.4735518
+action Stack { card: Skull }	prob 0.5264482
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Skull }	prob 0.099915296
+action Bid { amount: 1 }	prob 0.5698154
+action Bid { amount: 2 }	prob 0.33026928
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.00000033408998
+action Stack { card: Skull }	prob 0.99999964
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Bid { amount: 1 }	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.99999976
+action Bid { amount: 2 }	prob 0.00000026446662
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, false)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower, Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.16854693
+action Stack { card: Skull }	prob 0.08595351
+action Bid { amount: 1 }	prob 0.4582459
+action Bid { amount: 2 }	prob 0.13460147
+action Bid { amount: 3 }	prob 0.15265225
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower, Flower], [Flower, Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 0.07041441
+action Bid { amount: 1 }	prob 0.20100196
+action Bid { amount: 2 }	prob 0.40742347
+action Bid { amount: 3 }	prob 0.22913219
+action Bid { amount: 4 }	prob 0.09202802
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower, Flower], [Flower, Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.2240165
+action Bid { amount: 3 }	prob 0.23778322
+action Bid { amount: 4 }	prob 0.53820026
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower, Flower], [Flower, Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.6616745
+action Stack { card: Skull }	prob 0.3383255
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.3771697
+action Stack { card: Skull }	prob 0.6228303
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.14836723
+action Stack { card: Skull }	prob 0.16459803
+action Bid { amount: 1 }	prob 0.35419634
+action Bid { amount: 2 }	prob 0.33283848
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.25626472
+action Bid { amount: 2 }	prob 0.74373525
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.6717923
+action Stack { card: Skull }	prob 0.32820767
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.30909827
+action Stack { card: Skull }	prob 0.69090176
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.15793465
+action Stack { card: Skull }	prob 0.13549143
+action Bid { amount: 1 }	prob 0.34446156
+action Bid { amount: 2 }	prob 0.36211225
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.55879426
+action Stack { card: Skull }	prob 0.4412057
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.33187526
+action Stack { card: Skull }	prob 0.66812474
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 0.100899644
+action Bid { amount: 1 }	prob 0.61838764
+action Bid { amount: 2 }	prob 0.28071272
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 0.21398376
+action Bid { amount: 2 }	prob 0.7860162
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.69801146
+action Stack { card: Skull }	prob 0.30198854
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5619733
+action Stack { card: Skull }	prob 0.4380267
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5057431
+action Bid { amount: 1 }	prob 0.49373072
+action Bid { amount: 2 }	prob 0.0005262626
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull, Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.68650067
+action Bid { amount: 1 }	prob 0.08368921
+action Bid { amount: 2 }	prob 0.11742072
+action Bid { amount: 3 }	prob 0.11238931
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Bid { amount: 1 }	prob 0.9899027
+action Bid { amount: 2 }	prob 0.007816973
+action Bid { amount: 3 }	prob 0.00034572562
+action Bid { amount: 4 }	prob 0.0019346519
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.5613459
+action Bid { amount: 2 }	prob 0.1058823
+action Bid { amount: 3 }	prob 0.16034436
+action Bid { amount: 4 }	prob 0.17242754
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.637349
+action Stack { card: Skull }	prob 0.36265096
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5910973
+action Stack { card: Skull }	prob 0.40890273
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.34842798
+action Bid { amount: 1 }	prob 0.6331091
+action Bid { amount: 2 }	prob 0.018462967
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull, Flower], [Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.4855565
+action Bid { amount: 1 }	prob 0.22486442
+action Bid { amount: 2 }	prob 0.10871271
+action Bid { amount: 3 }	prob 0.18086632
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Bid { amount: 1 }	prob 0.9293992
+action Bid { amount: 2 }	prob 0.04215669
+action Bid { amount: 3 }	prob 0.003806616
+action Bid { amount: 4 }	prob 0.024637442
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.18098581
+action Bid { amount: 2 }	prob 0.39866522
+action Bid { amount: 3 }	prob 0.2494386
+action Bid { amount: 4 }	prob 0.1709104
+***Taking action Bid { amount: 4 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 4, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 4, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5453616
+action Stack { card: Skull }	prob 0.4546384
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.744797
+action Stack { card: Skull }	prob 0.255203
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Skull }	prob 0.3103824
+action Bid { amount: 1 }	prob 0.5308187
+action Bid { amount: 2 }	prob 0.1587989
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Flower, Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.4743814
+action Bid { amount: 1 }	prob 0.28895733
+action Bid { amount: 2 }	prob 0.021524169
+action Bid { amount: 3 }	prob 0.2151372
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Bid { amount: 1 }	prob 0.46064746
+action Bid { amount: 2 }	prob 0.35272327
+action Bid { amount: 3 }	prob 0.063334644
+action Bid { amount: 4 }	prob 0.12329465
+***Taking action Bid { amount: 4 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Bid { amount: 4, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Bid { amount: 4, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5
+action Stack { card: Skull }	prob 0.5
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Bid { amount: 1 }	prob 0.75347126
+action Bid { amount: 2 }	prob 0.24652874
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 0.6339195
+action Bid { amount: 2 }	prob 0.36608055
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Bid { amount: 1 }	prob 0.5
+action Bid { amount: 2 }	prob 0.5
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.8023259
+action Bid { amount: 2 }	prob 0.1976741
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, false)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.3867195
+action Bid { amount: 1 }	prob 0.56007874
+action Bid { amount: 2 }	prob 0.05320171
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.26783657
+action Bid { amount: 1 }	prob 0.4885851
+action Bid { amount: 2 }	prob 0.16716057
+action Bid { amount: 3 }	prob 0.076417685
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.49618366
+action Bid { amount: 2 }	prob 0.41382864
+action Bid { amount: 3 }	prob 0.08998765
+***Taking action Bid { amount: 3 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Skull, Flower])
+state Bid { amount: 3, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Skull, Flower])
+state Bid { amount: 3, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.6894731
+action Stack { card: Skull }	prob 0.31052694
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5335131
+action Stack { card: Skull }	prob 0.46648687
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5617547
+action Bid { amount: 1 }	prob 0.34680736
+action Bid { amount: 2 }	prob 0.091437936
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.30375612
+action Stack { card: Skull }	prob 0.012340164
+action Bid { amount: 1 }	prob 0.5753044
+action Bid { amount: 2 }	prob 0.0993456
+action Bid { amount: 3 }	prob 0.009253639
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower, Flower], [Skull, Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Bid { amount: 1 }	prob 0.90234673
+action Bid { amount: 2 }	prob 0.019697888
+action Bid { amount: 3 }	prob 0.040426776
+action Bid { amount: 4 }	prob 0.03752856
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower, Flower], [Skull, Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.063321084
+action Bid { amount: 2 }	prob 0.6132449
+action Bid { amount: 3 }	prob 0.3054877
+action Bid { amount: 4 }	prob 0.017946325
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower, Flower], [Skull, Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.93616164
+action Bid { amount: 3 }	prob 0
+action Bid { amount: 4 }	prob 0.063838325
+***Taking action Bid { amount: 4 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower, Flower], [Skull, Flower])
+state Bid { amount: 4, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower, Flower], [Skull, Flower])
+state Bid { amount: 4, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7702464
+action Stack { card: Skull }	prob 0.22975357
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Bid { amount: 1 }	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.9947331
+action Bid { amount: 2 }	prob 0.005266969
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (false, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.22189823
+action Bid { amount: 2 }	prob 0.7781018
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.77296084
+action Stack { card: Skull }	prob 0.22703911
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.4271306
+action Stack { card: Skull }	prob 0.5728694
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.11530274
+action Stack { card: Skull }	prob 0.1008154
+action Bid { amount: 1 }	prob 0.3725054
+action Bid { amount: 2 }	prob 0.41137645
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.5046935
+action Bid { amount: 2 }	prob 0.49530652
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (true, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.15229456
+action Bid { amount: 2 }	prob 0.8477055
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.7249502
+action Stack { card: Skull }	prob 0.27504984
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.43885937
+action Stack { card: Skull }	prob 0.5611406
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.11989779
+action Stack { card: Skull }	prob 0.13890661
+action Bid { amount: 1 }	prob 0.3664156
+action Bid { amount: 2 }	prob 0.37477997
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (false, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.69801146
+action Stack { card: Skull }	prob 0.30198854
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5619733
+action Stack { card: Skull }	prob 0.4380267
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5057431
+action Bid { amount: 1 }	prob 0.49373072
+action Bid { amount: 2 }	prob 0.0005262626
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull, Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.41499197
+action Stack { card: Skull }	prob 0.0058618477
+action Bid { amount: 1 }	prob 0.44893962
+action Bid { amount: 2 }	prob 0.12519483
+action Bid { amount: 3 }	prob 0.0050117467
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Bid { amount: 1 }	prob 0.9899027
+action Bid { amount: 2 }	prob 0.007816973
+action Bid { amount: 3 }	prob 0.00034572562
+action Bid { amount: 4 }	prob 0.0019346519
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.04278497
+action Bid { amount: 2 }	prob 0.78570235
+action Bid { amount: 3 }	prob 0.15845892
+action Bid { amount: 4 }	prob 0.0130538605
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.9984259
+action Bid { amount: 3 }	prob 0.0015741134
+action Bid { amount: 4 }	prob 0
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull, Flower], [Flower, Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.8544126
+action Stack { card: Skull }	prob 0.14558735
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.5412042
+action Stack { card: Skull }	prob 0.45879582
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.31322023
+action Stack { card: Skull }	prob 0.2583989
+action Bid { amount: 1 }	prob 0.17827733
+action Bid { amount: 2 }	prob 0.25010356
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.29965714
+action Bid { amount: 2 }	prob 0.70034283
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.8232197
+action Stack { card: Skull }	prob 0.1767803
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.45351163
+action Stack { card: Skull }	prob 0.54648834
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 0.07251098
+action Bid { amount: 1 }	prob 0.57921416
+action Bid { amount: 2 }	prob 0.34827486
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 0.36583441
+action Bid { amount: 2 }	prob 0.6341656
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.76652217
+action Stack { card: Skull }	prob 0.23347783
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.4996881
+action Stack { card: Skull }	prob 0.50031185
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Skull }	prob 0.20801142
+action Bid { amount: 1 }	prob 0.5057091
+action Bid { amount: 2 }	prob 0.28627944
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.38677782
+action Bid { amount: 1 }	prob 0.55495185
+action Bid { amount: 2 }	prob 0.058270395
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull, Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.17156316
+action Stack { card: Skull }	prob 0.10643875
+action Bid { amount: 1 }	prob 0.41334593
+action Bid { amount: 2 }	prob 0.18777934
+action Bid { amount: 3 }	prob 0.12087278
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull, Flower], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.5737921
+action Bid { amount: 2 }	prob 0.3337106
+action Bid { amount: 3 }	prob 0.09249727
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull, Flower], [Flower])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.6581257
+action Stack { card: Skull }	prob 0.34187433
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.37530008
+action Stack { card: Skull }	prob 0.6246999
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.0996848
+action Stack { card: Skull }	prob 0.12717238
+action Bid { amount: 1 }	prob 0.4102379
+action Bid { amount: 2 }	prob 0.3629049
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.66167784
+action Bid { amount: 2 }	prob 0.33832213
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.7699898
+action Stack { card: Skull }	prob 0.2300102
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.45791548
+action Stack { card: Skull }	prob 0.5420846
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Skull }	prob 0.15341516
+action Bid { amount: 1 }	prob 0.4154343
+action Bid { amount: 2 }	prob 0.4311505
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.30044517
+action Bid { amount: 2 }	prob 0.6995548
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (false, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.69801146
+action Stack { card: Skull }	prob 0.30198854
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5619733
+action Stack { card: Skull }	prob 0.4380267
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Skull }	prob 0.067957744
+action Bid { amount: 1 }	prob 0.5973443
+action Bid { amount: 2 }	prob 0.33469802
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.6767277
+action Stack { card: Skull }	prob 0.32327232
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.61317056
+action Stack { card: Skull }	prob 0.38682944
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Skull }	prob 0.10555857
+action Bid { amount: 1 }	prob 0.64243495
+action Bid { amount: 2 }	prob 0.2520065
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.13157265
+action Bid { amount: 2 }	prob 0.86842734
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.66387445
+action Stack { card: Skull }	prob 0.3361255
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.4348299
+action Stack { card: Skull }	prob 0.56517005
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.4319854
+action Bid { amount: 1 }	prob 0.29795644
+action Bid { amount: 2 }	prob 0.27005816
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.7891474
+action Stack { card: Skull }	prob 0.21085264
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.4441643
+action Stack { card: Skull }	prob 0.5558357
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Skull }	prob 0.0028773965
+action Bid { amount: 1 }	prob 0.89251006
+action Bid { amount: 2 }	prob 0.10461252
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.8175959
+action Bid { amount: 2 }	prob 0.18240415
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.7033985
+action Stack { card: Skull }	prob 0.2966015
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.38158572
+action Stack { card: Skull }	prob 0.6184143
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.15576707
+action Stack { card: Skull }	prob 0.16382919
+action Bid { amount: 1 }	prob 0.35080448
+action Bid { amount: 2 }	prob 0.3295992
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower, Flower])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.18867803
+action Bid { amount: 1 }	prob 0.29037383
+action Bid { amount: 2 }	prob 0.42416647
+action Bid { amount: 3 }	prob 0.09678164
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.09626221
+action Bid { amount: 2 }	prob 0.6303454
+action Bid { amount: 3 }	prob 0.27339235
+***Taking action Bid { amount: 3 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower, Flower])
+state Bid { amount: 3, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower, Flower])
+state Bid { amount: 3, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.6588038
+action Stack { card: Skull }	prob 0.34119618
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.64307976
+action Stack { card: Skull }	prob 0.35692018
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Skull }	prob 0.085549854
+action Bid { amount: 1 }	prob 0.47193298
+action Bid { amount: 2 }	prob 0.4425172
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.0073146443
+action Stack { card: Skull }	prob 0.9926854
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Bid { amount: 1 }	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.99433726
+action Bid { amount: 2 }	prob 0.005662724
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (false, true)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower, Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.30188012
+action Bid { amount: 1 }	prob 0.4075048
+action Bid { amount: 2 }	prob 0.23122412
+action Bid { amount: 3 }	prob 0.059390936
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower, Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.51983106
+action Bid { amount: 3 }	prob 0.48016897
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower, Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.7125872
+action Stack { card: Skull }	prob 0.28741285
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.48724508
+action Stack { card: Skull }	prob 0.51275486
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 0.086836696
+action Bid { amount: 1 }	prob 0.66614497
+action Bid { amount: 2 }	prob 0.24701835
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.2514453
+action Stack { card: Skull }	prob 0.7485547
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Bid { amount: 1 }	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (false, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Flower, Skull])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.16854693
+action Stack { card: Skull }	prob 0.08595351
+action Bid { amount: 1 }	prob 0.4582459
+action Bid { amount: 2 }	prob 0.13460147
+action Bid { amount: 3 }	prob 0.15265225
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Flower], [Flower, Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.19671907
+action Bid { amount: 1 }	prob 0.2825562
+action Bid { amount: 2 }	prob 0.33235848
+action Bid { amount: 3 }	prob 0.13756023
+action Bid { amount: 4 }	prob 0.05080594
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Flower], [Flower, Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.2240165
+action Bid { amount: 3 }	prob 0.23778322
+action Bid { amount: 4 }	prob 0.53820026
+***Taking action Bid { amount: 4 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Flower], [Flower, Skull])
+state Bid { amount: 4, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower, Flower], [Flower, Skull])
+state Bid { amount: 4, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7296811
+action Stack { card: Skull }	prob 0.27031893
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.513001
+action Stack { card: Skull }	prob 0.48699895
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Skull }	prob 0.10740156
+action Bid { amount: 1 }	prob 0.6620845
+action Bid { amount: 2 }	prob 0.23051392
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 0.2629411
+action Bid { amount: 2 }	prob 0.7370589
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.60275716
+action Stack { card: Skull }	prob 0.3972429
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.4769262
+action Stack { card: Skull }	prob 0.5230738
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.52292234
+action Bid { amount: 1 }	prob 0.32601842
+action Bid { amount: 2 }	prob 0.15105926
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.7487774
+action Stack { card: Skull }	prob 0.25122267
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.69407374
+action Stack { card: Skull }	prob 0.30592626
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.72563887
+action Bid { amount: 1 }	prob 0.2501559
+action Bid { amount: 2 }	prob 0.024205256
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.44897774
+action Bid { amount: 1 }	prob 0.37730926
+action Bid { amount: 2 }	prob 0.08685646
+action Bid { amount: 3 }	prob 0.08685646
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Bid { amount: 1 }	prob 0.9252365
+action Bid { amount: 2 }	prob 0.026235238
+action Bid { amount: 3 }	prob 0.022571348
+action Bid { amount: 4 }	prob 0.02595688
+***Taking action Bid { amount: 4 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 4, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull, Flower], [Skull, Flower])
+state Bid { amount: 4, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.5
+action Stack { card: Skull }	prob 0.5
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Bid { amount: 1 }	prob 0.5
+action Bid { amount: 2 }	prob 0.5
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (false, true)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7712549
+action Stack { card: Skull }	prob 0.22874512
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.49825397
+action Stack { card: Skull }	prob 0.501746
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.22455229
+action Stack { card: Skull }	prob 0.17093147
+action Bid { amount: 1 }	prob 0.276557
+action Bid { amount: 2 }	prob 0.32795927
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.72871727
+action Stack { card: Skull }	prob 0.27128273
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.4625665
+action Stack { card: Skull }	prob 0.53743345
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.17739867
+action Stack { card: Skull }	prob 0.16873156
+action Bid { amount: 1 }	prob 0.29826194
+action Bid { amount: 2 }	prob 0.35560784
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.5267636
+action Bid { amount: 2 }	prob 0.47323635
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (true, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.69732183
+action Stack { card: Skull }	prob 0.3026781
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5409675
+action Stack { card: Skull }	prob 0.45903245
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.24574137
+action Bid { amount: 1 }	prob 0.7368795
+action Bid { amount: 2 }	prob 0.0173792
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull, Flower])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.40395895
+action Bid { amount: 1 }	prob 0.2792335
+action Bid { amount: 2 }	prob 0.17769696
+action Bid { amount: 3 }	prob 0.1391106
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.9827943
+action Bid { amount: 2 }	prob 0.0017327497
+action Bid { amount: 3 }	prob 0.015472961
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull, Flower])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Flower }	prob 0.7057506
+action Stack { card: Skull }	prob 0.29424942
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, false)
+
+player P2
+action Stack { card: Flower }	prob 0.5737483
+action Stack { card: Skull }	prob 0.42625174
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (true, false)
+
+player P1
+action Stack { card: Skull }	prob 0.16221516
+action Bid { amount: 1 }	prob 0.8038181
+action Bid { amount: 2 }	prob 0.033966754
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, false)
+
+player P2
+action Pass	prob 0.35215476
+action Bid { amount: 2 }	prob 0.64784527
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (true, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.2039747
+action Stack { card: Skull }	prob 0.17836557
+action Bid { amount: 1 }	prob 0.33668187
+action Bid { amount: 2 }	prob 0.28097785
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.6991168
+action Stack { card: Skull }	prob 0.30088317
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.40963307
+action Stack { card: Skull }	prob 0.5903669
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.16348064
+action Stack { card: Skull }	prob 0.16900837
+action Bid { amount: 1 }	prob 0.32044137
+action Bid { amount: 2 }	prob 0.34706968
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull], [Flower, Skull])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.1615984
+action Bid { amount: 1 }	prob 0.3476391
+action Bid { amount: 2 }	prob 0.3776202
+action Bid { amount: 3 }	prob 0.11314232
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.104769975
+action Bid { amount: 1 }	prob 0.31228784
+action Bid { amount: 2 }	prob 0.2973156
+action Bid { amount: 3 }	prob 0.19286928
+action Bid { amount: 4 }	prob 0.09275735
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.4553219
+action Bid { amount: 3 }	prob 0.33685368
+action Bid { amount: 4 }	prob 0.20782438
+***Taking action Bid { amount: 3 }
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Bid { amount: 3, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.932408
+action Bid { amount: 4 }	prob 0.06759201
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Skull, Flower], [Flower, Skull])
+state Bid { amount: 3, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.7982865
+action Stack { card: Skull }	prob 0.20171352
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 2 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.5815262
+action Stack { card: Skull }	prob 0.4184738
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Stack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Skull }	prob 0.17340791
+action Bid { amount: 1 }	prob 0.5100259
+action Bid { amount: 2 }	prob 0.31656614
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 0.21972743
+action Bid { amount: 2 }	prob 0.78027254
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (false, true)
+
+Player 1 Reward: -1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.3867195
+action Bid { amount: 1 }	prob 0.56007874
+action Bid { amount: 2 }	prob 0.05320171
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.22189823
+action Bid { amount: 2 }	prob 0.7781018
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Flower], [Skull])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.6704324
+action Stack { card: Skull }	prob 0.32956764
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5938823
+action Stack { card: Skull }	prob 0.4061177
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 0.08103875
+action Bid { amount: 1 }	prob 0.58764863
+action Bid { amount: 2 }	prob 0.33131263
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 2, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Bid { amount: 1 }	prob 0.99880695
+action Bid { amount: 2 }	prob 0.0011930667
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 1
+action Bid { amount: 2 }	prob 0.0000000142734695
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 0 })
+stacks ([], [])
+state End { winner: P1 }
+has flipped (false, false)
+
+Player 1 Reward: 1
+---------------------------
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 2 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.76144123
+action Stack { card: Skull }	prob 0.23855874
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([], [Skull])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5394828
+action Stack { card: Skull }	prob 0.4605173
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.3867195
+action Bid { amount: 1 }	prob 0.56007874
+action Bid { amount: 2 }	prob 0.05320171
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.8175959
+action Bid { amount: 2 }	prob 0.18240415
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 0, flowers: 2 })
+stacks ([Skull], [Skull])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Flower }	prob 0.6704324
+action Stack { card: Skull }	prob 0.32956764
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, false)
+
+player P1
+action Stack { card: Flower }	prob 0.5187015
+action Stack { card: Skull }	prob 0.48129848
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P2 }
+has flipped (false, false)
+
+player P2
+action Stack { card: Skull }	prob 0.08103875
+action Bid { amount: 1 }	prob 0.58764863
+action Bid { amount: 2 }	prob 0.33131263
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, false)
+
+player P1
+action Pass	prob 0.810081
+action Bid { amount: 2 }	prob 0.189919
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P2, player: P2, has_passed: true }
+has flipped (false, false)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Flower }	prob 0.71326745
+action Stack { card: Skull }	prob 0.28673255
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 0 })
+stacks ([], [Flower])
+state PreStack { player: P1 }
+has flipped (false, true)
+
+player P1
+action Stack { card: Flower }	prob 0.4990961
+action Stack { card: Skull }	prob 0.5009039
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Stack { player: P2 }
+has flipped (false, true)
+
+player P2
+action Stack { card: Skull }	prob 0.111340836
+action Bid { amount: 1 }	prob 0.5899411
+action Bid { amount: 2 }	prob 0.29871807
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 1, leader: P2, player: P1, has_passed: false }
+has flipped (false, true)
+
+player P1
+action Pass	prob 0.14443377
+action Bid { amount: 2 }	prob 0.85556626
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (false, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Flower], [Flower])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (false, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 2 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.7552116
+action Stack { card: Skull }	prob 0.24478847
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.4824389
+action Stack { card: Skull }	prob 0.5175611
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.27216017
+action Stack { card: Skull }	prob 0.17032409
+action Bid { amount: 1 }	prob 0.202674
+action Bid { amount: 2 }	prob 0.35484177
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 1 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Flower }	prob 0.54944515
+action Stack { card: Skull }	prob 0.45055485
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Flower], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.5614582
+action Stack { card: Skull }	prob 0.43854186
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 0.06690464
+action Bid { amount: 1 }	prob 0.72841287
+action Bid { amount: 2 }	prob 0.20468251
+***Taking action Bid { amount: 2 }
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 0, flowers: 1 })
+stacks ([Flower], [Skull])
+state Bid { amount: 2, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 1, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state PreStack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Stack { card: Skull }	prob 1
+***Taking action Stack { card: Skull }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([Skull], [])
+state PreStack { player: P2 }
+has flipped (true, true)
+
+player P2
+action Stack { card: Flower }	prob 0.47618982
+action Stack { card: Skull }	prob 0.5238102
+***Taking action Stack { card: Flower }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Stack { player: P1 }
+has flipped (true, true)
+
+player P1
+action Bid { amount: 1 }	prob 0.5
+action Bid { amount: 2 }	prob 0.5
+***Taking action Bid { amount: 1 }
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P1, player: P2, has_passed: false }
+has flipped (true, true)
+
+player P2
+action Pass	prob 1
+action Bid { amount: 2 }	prob 0
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 0 })
+stacks ([Skull], [Flower])
+state Bid { amount: 1, leader: P1, player: P1, has_passed: true }
+has flipped (true, true)
+
+player P1
+action Pass	prob 1
+***Taking action Pass
+
+hands (Hand { skulls: 0, flowers: 0 }, Hand { skulls: 1, flowers: 1 })
+stacks ([], [])
+state End { winner: P2 }
+has flipped (true, true)
+
+Player 1 Reward: -1
