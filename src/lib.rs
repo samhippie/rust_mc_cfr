@@ -1,5 +1,4 @@
 use rand::seq::SliceRandom;
-use std::fmt;
 use std::thread;
 use rand::distributions::Distribution;
 
@@ -193,7 +192,7 @@ pub fn play_cfr_game<G: Game, R: regret::RegretHandler>(game: &mut G, cfr: &cfr:
 }
 
 
-pub fn play_random_game<A: fmt::Display + fmt::Debug>(game: &mut dyn Game<Action=A>) {
+pub fn play_random_game<G: Game>(game: &mut G) {
     let mut rng = rand::thread_rng();
 
     loop {
