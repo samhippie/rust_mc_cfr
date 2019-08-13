@@ -48,14 +48,15 @@ fn do_cfr() {
         .collect();
 
     //each thread's agent
-    //each agent gets its own regret sharder, but the regret shards share the providers
-    let cfrs: Vec<cfr::CounterFactualRegret> = (0..num_threads)
-        .map(|_| {
+    //each agent gets its own regret handler, but the regret handlers share the providers
+    //for loop + push instead of map because I don't feel like typing out cfrs's type signature
+    let mut cfrs = vec![];
+    for _ in 0..num_threads {
             let regret_sharder = regret::RegretSharder::new(&mut regret_providers);
             let strategy_sharder = regret::RegretSharder::new(&mut strategy_providers);
-            cfr::CounterFactualRegret::new(regret_sharder, strategy_sharder)
-        })
-        .collect();
+            let cfr = cfr::CounterFactualRegret::new(regret_sharder, strategy_sharder);
+            cfrs.push(cfr);
+    }
 
     //agent for after we've trained
     let strategy_sharder = regret::RegretSharder::new(&mut strategy_providers);
@@ -104,7 +105,7 @@ fn do_cfr() {
 }
 
 //generate table like http://www.cs.cmu.edu/~ggordon/poker/
-pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
+pub fn print_ocp_table<R: regret::RegretHandler>(cfr : &cfr::CounterFactualRegret<R>) {
     let num_cards = 13;
 
     print!("label,");
@@ -158,7 +159,7 @@ pub fn print_ocp_table(cfr : &cfr::CounterFactualRegret) {
 
 }
 
-pub fn play_cfr_game<A: fmt::Display + fmt::Debug>(game: &mut dyn Game<Action=A>, cfr: &cfr::CounterFactualRegret) {
+pub fn play_cfr_game<G: Game, R: regret::RegretHandler>(game: &mut G, cfr: &cfr::CounterFactualRegret<R>) {
     let mut rng = rand::thread_rng();
 
     loop {

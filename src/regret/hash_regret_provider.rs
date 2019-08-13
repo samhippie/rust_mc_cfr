@@ -1,10 +1,12 @@
 
 use std::collections::HashMap;
-//use std::sync::mpsc;
 use crossbeam_channel;
 use crate::game::*;
 use crate::regret::regret_provider::*;
+use crate::regret::channel_regret_handler::*;
 
+/// Regret provider that uses an in-memory HashMap to store regrets
+/// Uses ChannelRegretHandler for access
 pub struct HashRegretProvider {
     //we keep
     //request_receiver: mpsc::Receiver<Request>,
@@ -27,7 +29,6 @@ pub struct HashRegretProvider {
 
 impl HashRegretProvider {
     pub fn new() -> HashRegretProvider {
-        //let (request_sender, request_receiver) = mpsc::channel();
         let (request_sender, request_receiver) = crossbeam_channel::unbounded();
 
         HashRegretProvider {
@@ -66,7 +67,7 @@ impl HashRegretProvider {
         }
 
         if delta.iteration == 99 && !self.has_printed_size_debug {
-            println!("p1 {}\n p2 {}", self.p1_regrets.len(), self.p2_regrets.len());
+            println!("p1 len {} cap {}\np2 len {} cap {}", self.p1_regrets.len(), self.p1_regrets.capacity(), self.p2_regrets.len(), self.p2_regrets.capacity());
             self.has_printed_size_debug = true;
         }
 
@@ -99,18 +100,18 @@ impl HashRegretProvider {
 }
 
 impl RegretProvider for HashRegretProvider {
+    type Handler = ChannelRegretHandler;
 
-    fn get_handler(&mut self) -> RegretHandler {
+    fn get_handler(&mut self) -> ChannelRegretHandler {
         let request_sender = self.request_sender.clone();
 
-        //let (response_sender, response_receiver) = mpsc::channel();
         let (response_sender, response_receiver) = crossbeam_channel::unbounded();
         self.response_senders.push(response_sender);
         self.closed_senders.push(false);
 
         let handler = self.response_senders.len() - 1;
 
-        RegretHandler {
+        ChannelRegretHandler {
             requester: request_sender,
             receiver: response_receiver,
             handler,

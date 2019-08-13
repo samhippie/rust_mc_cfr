@@ -2,11 +2,9 @@ use rand::distributions::Distribution;
 use crate::game::{Game, Player, Infoset};
 use crate::regret;
 
-pub struct CounterFactualRegret {
-    //regret_handler: Option<regret::RegretHandler>,
-    regret_handler: Option<regret::RegretSharder>,
-    //strat_handler: regret::RegretHandler,
-    strat_handler: regret::RegretSharder,
+pub struct CounterFactualRegret<R: regret::RegretHandler> {
+    regret_handler: Option<R>,
+    strat_handler: R,
 
     on_player: Player,
 
@@ -14,19 +12,19 @@ pub struct CounterFactualRegret {
     iteration: i32,
 }
 
-impl CounterFactualRegret {
+impl<R: regret::RegretHandler> CounterFactualRegret<R> {
 
-    pub fn new(regret_sharder: regret::RegretSharder, strategy_sharder: regret::RegretSharder) -> CounterFactualRegret {
+    pub fn new(regret_handler: R, strategy_handler: R) -> CounterFactualRegret<R> {
         CounterFactualRegret {
-            regret_handler: Some(regret_sharder),
-            strat_handler: strategy_sharder,
+            regret_handler: Some(regret_handler),
+            strat_handler: strategy_handler,
             on_player: Player::P1,
             verbose: false,
             iteration: 0,
         }
     }
 
-    pub fn new_strat_only(strategy_sharder: regret::RegretSharder) -> CounterFactualRegret {
+    pub fn new_strat_only(strategy_sharder: R) -> CounterFactualRegret<R> {
         CounterFactualRegret {
             regret_handler: None,
             strat_handler: strategy_sharder,
@@ -126,10 +124,10 @@ impl CounterFactualRegret {
         let regret_handler = self.regret_handler
             .as_mut()
             .expect("Tried to get iter stategy in a strategy-only cfr instance");
-        CounterFactualRegret::regret_match(&regret_handler, player, infoset, num_actions)
+        CounterFactualRegret::<R>::regret_match(&regret_handler, player, infoset, num_actions)
     }
 
-    fn regret_match(regret_handler: &regret::RegretSharder, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>>
+    fn regret_match(regret_handler: &R, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>>
     {
         let regret_response = regret_handler.get_regret(player, infoset.hash)
             .expect("Failed to get regret");
