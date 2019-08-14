@@ -25,8 +25,8 @@ fn do_cfr() {
 
     //TODO have a better configuration method
     let num_threads = 16;
-    let num_shards = 3;
-    let num_iterations = 1000;
+    let num_shards = 1;
+    let num_iterations = 100;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
@@ -35,31 +35,40 @@ fn do_cfr() {
 
 
     //each provider will hold part of the regret table
-    let mut regret_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
-        .map(|_| {
-            regret::HashRegretProvider::new()
+    let mut regret_providers: Vec<regret::SledRegretProvider> = (0..num_shards)
+    //let mut regret_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
+        .map(|i| {
+            regret::SledRegretProvider::new(&format!("regret-{}", i))
+            //regret::HashRegretProvider::new()
         })
         .collect();
-    let mut strategy_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
-        .map(|_| {
-            regret::HashRegretProvider::new()
+    let mut strategy_providers: Vec<regret::SledRegretProvider> = (0..num_shards)
+    //let mut strategy_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
+        .map(|i| {
+            regret::SledRegretProvider::new(&format!("strat-{}", i))
+            //regret::HashRegretProvider::new()
         })
         .collect();
+    //let mut regret_provider = regret::SledRegretProvider::new("regrets");
+    //let mut strategy_provider = regret::SledRegretProvider::new("strategies");
 
     //each thread's agent
     //each agent gets its own regret handler, but the regret handlers share the providers
     //for loop + push instead of map because I don't feel like typing out cfrs's type signature
     let mut cfrs = vec![];
     for _ in 0..num_threads {
-            let regret_sharder = regret::RegretSharder::new(&mut regret_providers);
-            let strategy_sharder = regret::RegretSharder::new(&mut strategy_providers);
-            let cfr = cfr::CounterFactualRegret::new(regret_sharder, strategy_sharder);
+            let regret_handler = regret::RegretSharder::new(&mut regret_providers);
+            //let regret_handler = regret_provider.get_handler();
+            let strategy_handler = regret::RegretSharder::new(&mut strategy_providers);
+            //let strategy_handler = strategy_provider.get_handler();
+            let cfr = cfr::CounterFactualRegret::new(regret_handler, strategy_handler);
             cfrs.push(cfr);
     }
 
     //agent for after we've trained
-    let strategy_sharder = regret::RegretSharder::new(&mut strategy_providers);
-    let strat_cfr = cfr::CounterFactualRegret::new_strat_only(strategy_sharder);
+    let strategy_handler = regret::RegretSharder::new(&mut strategy_providers);
+    //let strategy_handler = strategy_provider.get_handler();
+    let strat_cfr = cfr::CounterFactualRegret::new_strat_only(strategy_handler);
 
     //let the providers run
     //if we want to stop them, we'll have to send a Request::Close
@@ -73,6 +82,8 @@ fn do_cfr() {
             provider.run();
         });
     }
+
+    //we'd normally run, but I know the sled provider doesn't need to run
 
     //training
     let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
