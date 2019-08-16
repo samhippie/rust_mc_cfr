@@ -26,7 +26,7 @@ fn do_cfr() {
     //TODO have a better configuration method
     let num_threads = 16;
     let num_shards = 1;
-    let num_iterations = 100;
+    let num_iterations = 20;
     let num_games = 20;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
@@ -35,17 +35,21 @@ fn do_cfr() {
 
 
     //each provider will hold part of the regret table
-    let mut regret_providers: Vec<regret::SledRegretProvider> = (0..num_shards)
+    //let mut regret_providers: Vec<regret::SledRegretProvider> = (0..num_shards)
+    let mut regret_providers: Vec<regret::RocksDbRegretProvider> = (0..num_shards)
     //let mut regret_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
         .map(|i| {
-            regret::SledRegretProvider::new(&format!("regret-{}", i))
+            //regret::SledRegretProvider::new(&format!("regret-{}", i))
+            regret::RocksDbRegretProvider::new(&format!("regret-{}", i))
             //regret::HashRegretProvider::new()
         })
         .collect();
-    let mut strategy_providers: Vec<regret::SledRegretProvider> = (0..num_shards)
+    //let mut strategy_providers: Vec<regret::SledRegretProvider> = (0..num_shards)
+    let mut strategy_providers: Vec<regret::RocksDbRegretProvider> = (0..num_shards)
     //let mut strategy_providers: Vec<regret::HashRegretProvider> = (0..num_shards)
         .map(|i| {
-            regret::SledRegretProvider::new(&format!("strat-{}", i))
+            //regret::SledRegretProvider::new(&format!("strat-{}", i))
+            regret::RocksDbRegretProvider::new(&format!("strat-{}", i))
             //regret::HashRegretProvider::new()
         })
         .collect();
