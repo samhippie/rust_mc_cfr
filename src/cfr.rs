@@ -69,29 +69,19 @@ impl<R: regret::RegretHandler> CounterFactualRegret<R> {
         if player == self.on_player {
             let probs = self.get_iter_strategy(player, &infoset, actions.len())?;
 
-            let rewards: Option<Vec<f32>> = actions.into_iter().map(|action| {
+            let mut rewards = vec![];
+            for action in actions.into_iter() {
                 let mut subgame = game.clone();
                 subgame.take_turn(player, &action);
-                self.search(subgame)
-            }).collect();
-            let rewards = rewards?;
+                let reward = self.search(subgame);
+                let reward = reward?;
+                rewards.push(reward);
+            }
 
             let expected_value: f32 = probs.iter().zip(rewards.iter())
                 .map(|(p, r)| p * r)
                 .sum();
             let regrets = rewards.into_iter().map(|r| r - expected_value).collect();
-
-            /*
-            if self.verbose {
-                println!("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                println!("{}", game);
-                for ((a, p), r) in actions.iter().zip(probs.iter()).zip(rewards.iter()) {
-                    println!("action {} prob {} reward {}", a, p, r);
-                }
-                println!("regrets {:?}", regrets);
-                println!("expected value {:?}", expected_value);
-            }
-            */
 
             self.regret_handler
                 .as_mut()
@@ -129,6 +119,11 @@ impl<R: regret::RegretHandler> CounterFactualRegret<R> {
 
     fn regret_match(regret_handler: &R, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>>
     {
+        //no need to get the regrets if the probs is always 1
+        if num_actions == 1 {
+            return Some(vec![1.0]);
+        }
+
         let regret_response = regret_handler.get_regret(player, infoset.hash)
             .expect("Failed to get regret");
 
@@ -141,9 +136,6 @@ impl<R: regret::RegretHandler> CounterFactualRegret<R> {
             Some(regret) => regret,
             None => vec![0.0; num_actions],
         };
-
-        //println!("infoset hash {}", infoset.hash);
-        //println!("actual regrets {:?}", regrets);
 
         let pos_regrets: Vec<f32> = regrets.iter().map(|&regret| {
             if regret > 0.0 {
