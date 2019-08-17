@@ -10,3 +10,4 @@ pub use hash_regret_provider::HashRegretProvider;
 pub use regret_sharder::RegretSharder;
 pub use sled_regret_provider::SledRegretProvider;
 pub use rocksdb_regret_provider::RocksDbRegretProvider;
+pub use regret_provider::RegretConfig;

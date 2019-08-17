@@ -27,11 +27,19 @@ enum RegretType {
     RocksDb(String),
 }
 
-fn get_regret_providers(regret_type: RegretType, num: usize) -> Vec<Box<dyn RegretProvider>> {
+fn get_regret_providers(regret_type: RegretType, num: usize, config: &regret::RegretConfig) -> Vec<Box<dyn RegretProvider>> {
     (0..num).map(|i| {
         match &regret_type {
-            RegretType::RocksDb(name) => Box::new(regret::RocksDbRegretProvider::new(&format!("{}-{}", name, i))) as Box<dyn RegretProvider>,
-            RegretType::HashMap => Box::new(regret::HashRegretProvider::new()) as Box<dyn RegretProvider>,
+            RegretType::RocksDb(name) => {
+                let mut provider = regret::RocksDbRegretProvider::new(&format!("{}-{}", name, i));
+                provider.set_config(config);
+                Box::new(provider) as Box<dyn RegretProvider>
+            }
+            RegretType::HashMap => {
+                let mut provider = regret::HashRegretProvider::new();
+                provider.set_config(config);
+                Box::new(provider) as Box<dyn RegretProvider>
+            }
         }
     }).collect()
 }
@@ -48,6 +56,9 @@ fn do_cfr() {
     let num_shards = 1;
     let num_iterations = 10;
     let num_games = 1;
+    let num_steps = 10;
+    let step_size = 100;
+    let num_exploit_mcts_iterations = 300_000;
     //println!("agent threads: {}", num_threads);
     //println!("regret provider threads: {}", num_shards);
     //println!("strategy provider threads: {}", num_shards);
@@ -55,10 +66,20 @@ fn do_cfr() {
 
 
     //each provider will hold part of the regret table
-    let mut regret_providers = get_regret_providers(RegretType::RocksDb(String::from("regret")), num_shards);
-    let mut strategy_providers = get_regret_providers(RegretType::RocksDb(String::from("strategy")), num_shards);
-    //let mut regret_providers = get_regret_providers(RegretType::HashMap, num_shards);
-    //let mut strategy_providers = get_regret_providers(RegretType::HashMap, num_shards);
+    let mut regret_config = regret::RegretConfig { 
+        alpha: 1.5, 
+        beta: 0.0, 
+        gamma: 2.0, 
+        is_strategy: false 
+    };
+
+    //TODO shouldn't the regret type go in the regret config?
+    let regret_types = (RegretType::RocksDb(String::from("regret")), RegretType::RocksDb(String::from("strategy")));
+    //let regret_types = (RegretType::HashMap, RegretType::HashMap);
+
+    let mut regret_providers = get_regret_providers(regret_types.0, num_shards, &regret_config);
+    regret_config.is_strategy = true;
+    let mut strategy_providers = get_regret_providers(regret_types.1, num_shards, &regret_config);
 
     //each thread's agent
     //each agent gets its own regret handler, but the regret handlers share the providers
@@ -91,8 +112,6 @@ fn do_cfr() {
 
     //we'd normally run, but I know the sled provider doesn't need to run
 
-    let num_steps = 10;
-    let step_size = 100;
 
     //training
     let barrier = Arc::new(Barrier::new(cfrs.len()));
@@ -104,10 +123,10 @@ fn do_cfr() {
                 if tid == 0 {
                     let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr);
                     for _ in 0..10 {
-                        let exploitability = mcts.run(1_000_000);
+                        let exploitability = mcts.run(num_exploit_mcts_iterations);
                         println!("exploitability, {}, {}", step, exploitability);
                     }
-                    //play_cfr_game(&mut get_game(), &cfr);
+                    play_cfr_game(&mut get_game(), &cfr);
                 }
                 thread_barrier.wait();
 

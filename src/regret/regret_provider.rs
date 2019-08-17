@@ -42,11 +42,10 @@ pub trait RegretHandler : Send {
 ///https://arxiv.org/pdf/1809.04040.pdf
 #[derive(Clone)]
 pub struct RegretConfig {
-    alpha: f32,
-    beta: f32,
-    gamma: f32,
-
-    is_strategy: bool,
+    pub alpha: f32,
+    pub beta: f32,
+    pub gamma: f32,
+    pub is_strategy: bool,
 }
 
 impl Default for RegretConfig {
