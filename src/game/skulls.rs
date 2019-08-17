@@ -62,7 +62,7 @@ impl Skulls {
 
     pub fn manual_new(player: Player) -> Skulls {
         Skulls {
-            hands: (Hand { skulls: 1, flowers: /*3*/3}, Hand { skulls: 1, flowers: /*3*/3}),
+            hands: (Hand { skulls: 1, flowers: /*3*/2}, Hand { skulls: 1, flowers: /*3*/2}),
             game_state: GameState::PreStack { player },
             stacks: (vec![], vec![]),
             has_flipped: (false, false),

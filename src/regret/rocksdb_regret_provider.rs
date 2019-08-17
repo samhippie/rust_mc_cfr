@@ -8,7 +8,8 @@ use crate::game::{Player};
 use crate::regret::regret_provider::*;
 
 pub struct RocksDbRegretProvider {
-    dbs: (Arc<DB>, Arc<DB>)
+    dbs: (Arc<DB>, Arc<DB>),
+    config: RegretConfig,
 }
 
 impl RocksDbRegretProvider {
@@ -19,6 +20,7 @@ impl RocksDbRegretProvider {
                 get_db(&format!("/home/sam/data-ssd/{}{}", name, ".p1_db")), 
                 get_db(&format!("/home/sam/data-ssd/{}{}", name, ".p2_db")),
             ),
+            config: RegretConfig::default(),
         } 
     }
 }
@@ -44,12 +46,16 @@ fn get_db(path: &str) -> Arc<DB> {
 }
 
 impl RegretProvider for RocksDbRegretProvider {
-    type Handler = RocksDbRegretHandler;
 
-    fn get_handler(&mut self) -> RocksDbRegretHandler {
-        RocksDbRegretHandler {
-            dbs: (self.dbs.0.clone(), self.dbs.1.clone())
-        } 
+    fn set_config(&mut self, config: &RegretConfig) {
+        self.config = config.clone()
+    }
+
+    fn get_handler(&mut self) -> Box<dyn RegretHandler> {
+        Box::new(RocksDbRegretHandler {
+            dbs: (self.dbs.0.clone(), self.dbs.1.clone()),
+            config: self.config.clone(),
+        })
     }
 
     fn run(&mut self) {
@@ -58,7 +64,8 @@ impl RegretProvider for RocksDbRegretProvider {
 }
 
 pub struct RocksDbRegretHandler {
-    dbs: (Arc<DB>, Arc<DB>)
+    dbs: (Arc<DB>, Arc<DB>),
+    config: RegretConfig,
 }
 
 impl RegretHandler for RocksDbRegretHandler {
@@ -103,8 +110,7 @@ impl RegretHandler for RocksDbRegretHandler {
             //update regrets
             let i = iteration as f32;
             regret.into_iter().zip(regret_delta.into_iter()).map(|(r,d)| {
-                let new_r = r * i / (i + 1.0) + d;
-                new_r.abs()
+                self.config.apply_delta(i, r, d)
             }).collect()
         } else {
             //just insert regrets we're given

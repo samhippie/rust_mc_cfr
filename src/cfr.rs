@@ -2,9 +2,11 @@ use rand::distributions::Distribution;
 use crate::game::{Game, Player, Infoset};
 use crate::regret;
 
-pub struct CounterFactualRegret<R: regret::RegretHandler> {
-    regret_handler: Option<R>,
-    strat_handler: R,
+pub struct CounterFactualRegret {
+    //regret_handler: Option<Box<dyn regret::RegretHandler>>,
+    //strat_handler: Box<dyn regret::RegretHandler>,
+    regret_handler: Option<Box<dyn regret::RegretHandler>>,
+    strat_handler: Box<dyn regret::RegretHandler>,
 
     on_player: Player,
 
@@ -12,9 +14,9 @@ pub struct CounterFactualRegret<R: regret::RegretHandler> {
     iteration: i32,
 }
 
-impl<R: regret::RegretHandler> CounterFactualRegret<R> {
+impl CounterFactualRegret {
 
-    pub fn new(regret_handler: R, strategy_handler: R) -> CounterFactualRegret<R> {
+    pub fn new(regret_handler: Box<dyn regret::RegretHandler>, strategy_handler: Box<dyn regret::RegretHandler>) -> CounterFactualRegret {
         CounterFactualRegret {
             regret_handler: Some(regret_handler),
             strat_handler: strategy_handler,
@@ -24,7 +26,7 @@ impl<R: regret::RegretHandler> CounterFactualRegret<R> {
         }
     }
 
-    pub fn new_strat_only(strategy_sharder: R) -> CounterFactualRegret<R> {
+    pub fn new_strat_only(strategy_sharder: Box<dyn regret::RegretHandler>) -> CounterFactualRegret {
         CounterFactualRegret {
             regret_handler: None,
             strat_handler: strategy_sharder,
@@ -114,10 +116,10 @@ impl<R: regret::RegretHandler> CounterFactualRegret<R> {
         let regret_handler = self.regret_handler
             .as_mut()
             .expect("Tried to get iter stategy in a strategy-only cfr instance");
-        CounterFactualRegret::<R>::regret_match(&regret_handler, player, infoset, num_actions)
+        CounterFactualRegret::regret_match(&regret_handler, player, infoset, num_actions)
     }
 
-    fn regret_match(regret_handler: &R, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>>
+    fn regret_match(regret_handler: &Box<dyn regret::RegretHandler>, player: Player, infoset: &Infoset, num_actions: usize) -> Option<Vec<f32>>
     {
         //no need to get the regrets if the probs is always 1
         if num_actions == 1 {

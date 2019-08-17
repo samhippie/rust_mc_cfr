@@ -1,6 +1,6 @@
 use std::fmt;
 use std::hash::{Hash, Hasher};
-use std::collections::hash_map::DefaultHasher;
+use fasthash::{MetroHasher};
 
 #[derive(PartialEq, Copy, Clone, Debug, Hash)]
 pub enum Player {
@@ -64,7 +64,7 @@ pub struct Infoset {
 
 impl Infoset {
     pub fn new<T: Hash>(infoset: T) -> Infoset {
-        let mut hasher = DefaultHasher::new();
+        let mut hasher: MetroHasher = Default::default();
         infoset.hash(&mut hasher);
         let hash = hasher.finish();
 

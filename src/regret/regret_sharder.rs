@@ -7,12 +7,12 @@ use crate::game::Player;
 /// 
 /// This is useful for using spreading regrets across multiple regret providers
 /// on separate threads without the providers needing to coordinate
-pub struct RegretSharder<R: RegretHandler> {
-    regret_handlers: Vec<R>,
+pub struct RegretSharder {
+    regret_handlers: Vec<Box<dyn RegretHandler>>,
 }
 
-impl<T: RegretHandler> RegretSharder<T> {
-    pub fn new<P: RegretProvider<Handler=T>>(regret_providers: &mut Vec<P>) -> RegretSharder<T> {
+impl RegretSharder {
+    pub fn new(regret_providers: &mut Vec<Box<dyn RegretProvider>>) -> RegretSharder {
         let regret_handlers = regret_providers.iter_mut()
             .map(|provider| provider.get_handler())
             .collect();
@@ -23,7 +23,7 @@ impl<T: RegretHandler> RegretSharder<T> {
     }
 }
 
-impl<T: RegretHandler> RegretHandler for RegretSharder<T> {
+impl RegretHandler for RegretSharder {
     fn get_regret(&self, player: Player, infoset_hash: u64) -> Result<Response, Box<dyn error::Error>> {
         let handler_index = infoset_hash as usize % self.regret_handlers.len();
         let handler = &self.regret_handlers[handler_index];

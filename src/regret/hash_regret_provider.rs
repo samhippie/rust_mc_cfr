@@ -24,7 +24,7 @@ pub struct HashRegretProvider {
     p1_regrets: HashMap<u64, Vec<f32>>,
     p2_regrets: HashMap<u64, Vec<f32>>,
 
-    has_printed_size_debug: bool,
+    config: RegretConfig,
 }
 
 impl HashRegretProvider {
@@ -41,7 +41,7 @@ impl HashRegretProvider {
             p1_regrets: HashMap::new(),
             p2_regrets: HashMap::new(),
 
-            has_printed_size_debug: false,
+            config: RegretConfig::default(),
         }
     }
 
@@ -66,11 +66,6 @@ impl HashRegretProvider {
             return;
         }
 
-        if delta.iteration == 99 && !self.has_printed_size_debug {
-            println!("p1 len {} cap {}\np2 len {} cap {}", self.p1_regrets.len(), self.p1_regrets.capacity(), self.p2_regrets.len(), self.p2_regrets.capacity());
-            self.has_printed_size_debug = true;
-        }
-
         let regrets = match delta.player {
             Player::P1 => &mut self.p1_regrets,
             Player::P2 => &mut self.p2_regrets,
@@ -79,13 +74,7 @@ impl HashRegretProvider {
             .or_insert_with(|| vec![0.0; delta.regret_delta.len()]);
 
         for (r, d) in regret.iter_mut().zip(delta.regret_delta.iter()) {
-            //*r += d
-            //x = x * (n-1)/n + y is proportional to x += n * y
-            //but more numerically stable
-            *r = *r * (delta.iteration as f32) / (delta.iteration as f32 + 1.0) + d;
-            if *r < 0.0 {
-                *r = 0.0;
-            }
+            *r = self.config.apply_delta(delta.iteration as f32, *r, *d)
         }
     }
     
@@ -100,9 +89,12 @@ impl HashRegretProvider {
 }
 
 impl RegretProvider for HashRegretProvider {
-    type Handler = ChannelRegretHandler;
 
-    fn get_handler(&mut self) -> ChannelRegretHandler {
+    fn set_config(&mut self, config: &RegretConfig) {
+        self.config = config.clone()
+    }
+
+    fn get_handler(&mut self) -> Box<dyn RegretHandler> {
         let request_sender = self.request_sender.clone();
 
         let (response_sender, response_receiver) = crossbeam_channel::unbounded();
@@ -111,11 +103,11 @@ impl RegretProvider for HashRegretProvider {
 
         let handler = self.response_senders.len() - 1;
 
-        ChannelRegretHandler {
+        Box::new(ChannelRegretHandler {
             requester: request_sender,
             receiver: response_receiver,
             handler,
-        }
+        })
     }
 
     fn run(&mut self) {
@@ -161,7 +153,7 @@ mod tests {
         assert_eq!(*saved_regret, regret);
     }
 
-    //Taken out because the test doesn't account for cfr+
+    //Taken out because the test doesn't account for dcfr
     //#[test]
     fn handles_delta_request_existing() {
         let mut provider = HashRegretProvider::new();
