@@ -12,6 +12,7 @@ crossbeam-channel = "0.3.9"
 sled = "0.24.1"
 bytevec = "0.2.0"
 rocksdb = "0.12.3"
+fasthash = "0.4.0"
 
 [profile.release]
 debug = true
