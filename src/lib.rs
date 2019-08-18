@@ -54,6 +54,7 @@ fn do_cfr() {
     //TODO have a better configuration method
     let num_threads = 16;
     let num_shards = 1;
+    let num_mcts_shards = 8;
     let num_iterations = 10;
     let num_games = 1;
     let num_steps = 10;
@@ -115,16 +116,18 @@ fn do_cfr() {
 
     //training
     let barrier = Arc::new(Barrier::new(cfrs.len()));
-    let provider = Arc::new(mcts_exploit::StrategyProvider::new());
+    let providers: Arc<Vec<mcts_exploit::StrategyProvider>> = Arc::new(
+        (0..num_mcts_shards).map(|_| mcts_exploit::StrategyProvider::new()).collect()
+    );
     let children: Vec<thread::JoinHandle<_>> = cfrs.into_iter().enumerate().map(|(tid, mut cfr)| {
         let thread_barrier = barrier.clone();
-        let provider = provider.clone();
+        let providers = providers.clone();
         thread::spawn(move || {
             for step in 0..num_steps {
                 //do this first to get a baseline over the default random strategy
                 //all threads will do the mcts search, but thread 0 will manage everything
                 for _ in 0..10 {
-                    let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr, provider.clone());
+                    let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr, providers.clone());
                     let exploitability = mcts.run(num_exploit_mcts_iterations);
                     if tid == 0 {
                         println!("exploitability, {}, {}", step, exploitability);
@@ -132,7 +135,9 @@ fn do_cfr() {
                     thread_barrier.wait();
                 }
                 if tid == 0 {
-                    provider.clear();
+                    for provider in providers.iter() {
+                        provider.clear();
+                    }
                     play_cfr_game(&mut get_game(), &cfr);
                 }
 
