@@ -12,7 +12,7 @@ pub enum Card {
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Action {
     Stack { card: Card },
-    Bid { amount : usize},
+    Bid { amount : u8 },
     Pass,
     //flipping is automatic in 2 player games, so there's no need to encode
 }
@@ -21,7 +21,7 @@ pub enum Action {
 enum GameState {
     Stack { player: Player },
     PreStack { player: Player },
-    Bid { amount: usize, leader: Player, player: Player, has_passed: bool },
+    Bid { amount: u8, leader: Player, player: Player, has_passed: bool },
     End { winner: Player },
 }
 
@@ -36,8 +36,8 @@ enum HistoryEntry {
 
 #[derive(Clone, Debug)]
 struct Hand {
-    skulls: usize,
-    flowers: usize,
+    skulls: u8,
+    flowers: u8,
 }
 
 #[derive(Clone, Debug)]
@@ -130,7 +130,7 @@ impl Game for Skulls {
                     .chain(
                         leader.other().lens(&self.stacks).iter().rev()
                         .map(|c| { (leader, c) })
-                    ).take(*amount);
+                    ).take(*amount as usize);
                 
                 //seach for skull
                 let mut found_skull = false;
@@ -205,7 +205,7 @@ impl Game for Skulls {
     }
 
     fn get_infoset(&self, player: Player) -> Infoset {
-        let infoset : Vec<(Player, Player, u32, usize)> = self.history.iter().map(|entry| {
+        let infoset : Vec<(u8, u8, u8, u8)> = self.history.iter().map(|entry| {
             match *entry {
                 HistoryEntry::GetPoint(p) => (p, p, 0, 0),
                 HistoryEntry::PlayerAction(p, action) => {
@@ -215,7 +215,7 @@ impl Game for Skulls {
                             Action::Bid { amount } => (p, p, 1, amount),
                             Action::Pass => (p, p, 2, 0),
                             //i'm reserving 0 for unknown
-                            Action::Stack { card } => (p, p, 3, 1 + card as usize),
+                            Action::Stack { card } => (p, p, 3, 1 + card as u8),
                         }
                     } else {
                         match action {
@@ -225,14 +225,14 @@ impl Game for Skulls {
                         }
                     }
                 },
-                HistoryEntry::Flip(flipper, target, card) => (flipper, target, 4, card as usize),
+                HistoryEntry::Flip(flipper, target, card) => (flipper, target, 4, card as u8),
                 //again, reserving 0 for unknown
-                HistoryEntry::LoseCard(flipper, card) if flipper == player => (flipper, flipper, 5, 1 + card as usize),
+                HistoryEntry::LoseCard(flipper, card) if flipper == player => (flipper, flipper, 5, 1 + card as u8),
                 HistoryEntry::LoseCard(flipper, _) => (flipper, flipper, 5, 0),
             }
         })
         //change perspective so the player thinks they're P1
-        .map(|(p1, p2, x, y)| (player.view(p1), player.view(p2), x, y))
+        .map(|(p1, p2, x, y)| (player.view(p1) as u8, player.view(p2) as u8, x, y))
         .collect();
         Infoset::new(infoset)
     }
@@ -249,9 +249,9 @@ fn hand_to_stack_actions(hand: &Hand) -> Vec<Action> {
     actions
 }
 
-fn board_to_bid_actions(current_bid: usize, stacks: &(Vec<Card>, Vec<Card>)) -> Vec<Action> {
+fn board_to_bid_actions(current_bid: u8, stacks: &(Vec<Card>, Vec<Card>)) -> Vec<Action> {
     let (stack1, stack2) = stacks;
-    let num_cards = stack1.len() + stack2.len();
+    let num_cards = (stack1.len() + stack2.len()) as u8;
 
     let maybe_pass = if current_bid == 0 {
         None
