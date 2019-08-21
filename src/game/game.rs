@@ -99,4 +99,9 @@ pub trait Game: fmt::Display {
     /// Earlier parts of the infoset should come first, so an early infoset
     /// is a prefix of a later infoset
     fn get_infoset(&self, player: Player) -> Infoset;
+
+    /// Returns a human-readable summary of the game for the given player
+    fn get_summary_string(&self, _player: Player) -> String {
+        String::from("Player summary not available")
+    }
 }

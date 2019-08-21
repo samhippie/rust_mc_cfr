@@ -1,7 +1,9 @@
 use rand::seq::SliceRandom;
+use rand::Rng;
 use std::thread;
 use rand::distributions::Distribution;
 use std::sync::{Barrier, Arc};
+use std::io;
 
 mod game;
 mod cfr;
@@ -55,18 +57,11 @@ fn do_cfr() {
     let num_threads = 16;
     let num_shards = 1;
     let num_mcts_shards = 8;
-    let num_iterations = 10;
-    let num_games = 1;
+    let num_games = 20;
     let num_steps = 10;
-    let step_size = 100;
-    let num_exploit_mcts_iterations = 50_000;
-    //println!("agent threads: {}", num_threads);
-    //println!("regret provider threads: {}", num_shards);
-    //println!("strategy provider threads: {}", num_shards);
-    //println!("iterations: {}", num_iterations);
+    let step_size = 20;
+    let num_exploit_mcts_iterations = 100_000;
 
-
-    //each provider will hold part of the regret table
     let mut regret_config = regret::RegretConfig { 
         alpha: 1.5, 
         beta: 0.0, 
@@ -126,14 +121,14 @@ fn do_cfr() {
             for step in 0..num_steps {
                 //do this first to get a baseline over the default random strategy
                 //all threads will do the mcts search, but thread 0 will manage everything
-                for _ in 0..10 {
-                    let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr, providers.clone());
+                let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr, providers.clone());
+                for _ in 0..1 {
                     let exploitability = mcts.run(num_exploit_mcts_iterations);
                     if tid == 0 {
                         println!("exploitability, {}, {}", step, exploitability);
                     }
-                    thread_barrier.wait();
                 }
+                //thread_barrier.wait();
                 if tid == 0 {
                     for provider in providers.iter() {
                         provider.clear();
@@ -169,9 +164,8 @@ fn do_cfr() {
         let mut game = get_game();
         play_cfr_game(&mut game, &strat_cfr);
     }
+    play_user_game(&mut get_game(), &strat_cfr);
     //print_ocp_table(&strat_cfr);
-
-
 }
 
 //generate table like http://www.cs.cmu.edu/~ggordon/poker/
@@ -256,6 +250,76 @@ pub fn play_cfr_game<G: Game>(game: &mut G, cfr: &cfr::CounterFactualRegret) {
             },
             Some(reward) => {
                 println!("Player 1 Reward: {}", reward);
+                break;
+            }
+        }
+    }
+}
+
+pub fn play_user_game(game: &mut impl Game, cfr: &cfr::CounterFactualRegret) {
+    let mut rng = rand::thread_rng();
+    let user_player = if rng.gen::<bool>() {
+        game::Player::P1
+    } else {
+        game::Player::P2
+    };
+    println!("You are {}", user_player);
+
+    loop {
+        println!();
+        match game.get_reward() {
+            None => {
+                let (player, actions) = game.get_turn();
+                if player == user_player {
+                    println!("{}", game.get_summary_string(player));
+                    println!();
+                    println!("User Player {}", player);
+
+                    for (i, action) in actions.iter().enumerate() {
+                        println!("action {}: {}", i, action);
+                    }
+
+                    let action_index = loop {
+                        print!("Your action:");
+                        let mut action_index = String::new();
+                        io::stdin().read_line(&mut action_index)
+                            .expect("Failed to read line");
+
+                        let action_index= action_index.trim().parse::<usize>();
+                        if let Ok(i) = action_index {
+                            if i < actions.len() {
+                                break i;
+                            }
+                        }
+                    };
+                    let action = &actions[action_index];
+                    println!("{} taking action {}", player, action);
+                    game.take_turn(player, action);
+
+                } else {
+                    println!("CFR Player {}", player);
+                    let infoset = game.get_infoset(player);
+                    let probs = cfr.get_avg_strategy(player, &infoset, actions.len())
+                        .expect("Failed to get strategy probabilities");
+
+                    for (i, action) in actions.iter().enumerate() {
+                        println!("action {}: {}", i, action);
+                    }
+
+                    let sampler = rand::distributions::WeightedIndex::new(&probs).unwrap();
+                    let action_index = sampler.sample(&mut rng);
+                    let action = &actions[action_index];
+
+                    game.take_turn(player, action);
+                }
+            },
+            Some(reward) => {
+                let reward = if user_player == game::Player::P1 {
+                    reward
+                } else {
+                    -1.0 * reward
+                };
+                println!("User Reward: {}", reward);
                 break;
             }
         }

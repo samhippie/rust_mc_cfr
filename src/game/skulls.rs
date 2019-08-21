@@ -51,6 +51,7 @@ pub struct Skulls {
 
 impl Skulls {
     pub fn new() -> Skulls {
+        /*
         let mut rng = rand::thread_rng();
         let player = if rng.gen::<bool>() {
             Player::P1
@@ -58,6 +59,9 @@ impl Skulls {
             Player::P2
         };
         Skulls::manual_new(player)
+        */
+        //I think we can get better results if P1 is always first
+        Skulls::manual_new(Player::P1)
     }
 
     pub fn manual_new(player: Player) -> Skulls {
@@ -236,6 +240,33 @@ impl Game for Skulls {
         .collect();
         Infoset::new(infoset)
     }
+
+    fn get_summary_string(&self, player: Player) -> String {
+        self.history.iter().map(|entry| {
+            match *entry {
+                HistoryEntry::GetPoint(p) => format!("{} got a point", p),
+                HistoryEntry::PlayerAction(p, action) => {
+                    //player knows everything they did
+                    if p == player {
+                        match action {
+                            Action::Bid { amount } => format!("{} bid {}", p, amount),
+                            Action::Pass => format!("{} did not bid", p),
+                            Action::Stack { card } => format!("{} stacked {}", p, card),
+                        }
+                    } else {
+                        match action {
+                            Action::Bid { amount } => format!("{} bid {}", p, amount),
+                            Action::Pass => format!("{} did not bid", p),
+                            Action::Stack { .. } => format!("{} stacked... something", p),
+                        }
+                    }
+                },
+                HistoryEntry::Flip(flipper, target, card) => format!("{} flipped {}'s {}", flipper, target, card),
+                HistoryEntry::LoseCard(flipper, card) if flipper == player => format!("{} flipped a skull and lost {}", flipper, card),
+                HistoryEntry::LoseCard(flipper, _) => format!("{} flipped a skull and lost... something", flipper),
+            }
+        }).collect::<Vec<String>>().join("\n")
+    }
 }
 
 fn hand_to_stack_actions(hand: &Hand) -> Vec<Action> {
@@ -285,6 +316,13 @@ impl fmt::Display for Skulls {
 }
 
 impl fmt::Display for Action {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{:?}", self)?;
+        Ok(())
+    }
+}
+
+impl fmt::Display for Card {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self)?;
         Ok(())
