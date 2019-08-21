@@ -4,6 +4,7 @@ use std::thread;
 use rand::distributions::Distribution;
 use std::sync::{Barrier, Arc};
 use std::io;
+use std::io::prelude::*;
 
 mod game;
 mod cfr;
@@ -281,6 +282,7 @@ pub fn play_user_game(game: &mut impl Game, cfr: &cfr::CounterFactualRegret) {
 
                     let action_index = loop {
                         print!("Your action:");
+                        io::stdout().flush().ok().expect("Failed to flush stdout");
                         let mut action_index = String::new();
                         io::stdin().read_line(&mut action_index)
                             .expect("Failed to read line");
