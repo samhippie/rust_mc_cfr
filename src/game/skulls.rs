@@ -61,12 +61,12 @@ impl Skulls {
         Skulls::manual_new(player)
         */
         //I think we can get better results if P1 is always first
-        Skulls::manual_new(Player::P1)
+        Skulls::manual_new(Player::P1, 1, 3)
     }
 
-    pub fn manual_new(player: Player) -> Skulls {
+    pub fn manual_new(player: Player, num_skulls: u8, num_flowers: u8) -> Skulls {
         Skulls {
-            hands: (Hand { skulls: 1, flowers: /*3*/2}, Hand { skulls: 1, flowers: /*3*/2}),
+            hands: (Hand { skulls: num_skulls, flowers: num_flowers}, Hand { skulls: num_skulls, flowers: num_flowers}),
             game_state: GameState::PreStack { player },
             stacks: (vec![], vec![]),
             has_flipped: (false, false),
@@ -335,7 +335,7 @@ mod tests {
     use crate::game::*;
 
     fn wins_game_flipping(player: Player) -> Option<f32> {
-        let mut game = Skulls::manual_new(player);
+        let mut game = Skulls::manual_new(player, 1, 3);
 
         //prestack
         game.take_turn(player, &Action::Stack { card: Card::Flower });
@@ -402,7 +402,7 @@ mod tests {
 
     //this is less assert-heavy, as the other function has a lot of calls to assert
     fn loses_game_self_elimination(player: Player) -> Option<f32> {
-        let mut game = Skulls::manual_new(player);
+        let mut game = Skulls::manual_new(player, 1, 3);
 
         for i in 0..3 {
             //prestack
@@ -463,7 +463,7 @@ mod tests {
     fn extended_bidding() {
         for player in [Player::P1, Player::P2].into_iter() {
             let player = *player;
-            let mut game = Skulls::manual_new(player);
+            let mut game = Skulls::manual_new(player, 1, 3);
             //prestack
             game.take_turn(player, &Action::Stack { card: Card::Skull });
             game.take_turn(player.other(), &Action::Stack { card: Card::Skull });

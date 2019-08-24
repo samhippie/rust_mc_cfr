@@ -51,7 +51,7 @@ fn do_cfr() {
 
     //let get_game = || game::TicTacToe::new();
     //let get_game = || game::OneCardPoker::new();
-    let get_game = || game::Skulls::new();
+    let get_game = || game::Skulls::manual_new(game::Player::P1, 1, 1);
     //let get_game = || game::MatrixGame::new(2, vec![1.0, 0.9, -0.7, 1.0]);
 
     //TODO have a better configuration method
@@ -59,9 +59,9 @@ fn do_cfr() {
     let num_shards = 1;
     let num_mcts_shards = 8;
     let num_games = 20;
-    let num_steps = 10;
-    let step_size = 20;
-    let num_exploit_mcts_iterations = 100_000;
+    let num_steps = 20;
+    let step_size = 100;
+    let num_exploit_mcts_iterations = 1_000_000;
 
     let mut regret_config = regret::RegretConfig { 
         alpha: 1.5, 
@@ -144,7 +144,7 @@ fn do_cfr() {
                     }
                     let game = get_game();
                     cfr.set_iteration(iteration);
-                    let exp_val = cfr.search(game);
+                    let exp_val = cfr.search(game, 0);
                     if tid == 0 {
                         if let Some(exp_val) = exp_val {
                             println!("iteration-exp value {}, {}", iteration, exp_val);

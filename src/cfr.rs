@@ -47,7 +47,7 @@ impl CounterFactualRegret {
         };
     }
 
-    pub fn search<T>(&mut self, mut game: T) -> Option<f32>
+    pub fn search<T>(&mut self, mut game: T, depth: u32) -> Option<f32>
         where T: Game + Clone
     {
         if self.verbose {
@@ -75,7 +75,7 @@ impl CounterFactualRegret {
             for action in actions.into_iter() {
                 let mut subgame = game.clone();
                 subgame.take_turn(player, &action);
-                let reward = self.search(subgame);
+                let reward = self.search(subgame, depth+1);
                 let reward = reward?;
                 rewards.push(reward);
             }
@@ -104,7 +104,7 @@ impl CounterFactualRegret {
             let action = &actions[action_index];
             game.take_turn(player, action);
 
-            self.search(game)
+            self.search(game, depth+1)
         }
     }
 
