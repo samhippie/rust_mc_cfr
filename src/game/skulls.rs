@@ -114,9 +114,9 @@ impl Game for Skulls {
             //(unless you're just testing to see if the other person will bet, but then you have to get the timing exactly right and I've never seen that happen)
             //so I'm just going to enforce taking turns while bidding
             (GameState::Bid { player, .. }, Action::Bid { amount }) if *player == cur_player => GameState::Bid { amount: *amount, leader: *player, player: player.other(), has_passed: false},
-            (GameState::Bid { amount, leader, player, has_passed: false, }, Action::Pass) if *player == cur_player => GameState::Bid { amount: *amount, leader: *leader, player: player.other(), has_passed: true},
+            (GameState::Bid { amount, leader, player, has_passed: false, }, Action::Pass) if *player == cur_player => /*GameState::Bid { amount: *amount, leader: *leader, player: player.other(), has_passed: true},
             //end of round, both players passed
-            (GameState::Bid { amount, leader, player, has_passed: true, .. }, Action::Pass) if *player == cur_player => {
+            (GameState::Bid { amount, leader, player, has_passed: true, .. }, Action::Pass) if *player == cur_player =>*/ {
 
                 //restore hands based on stacks
                 for p in [Player::P1, Player::P2].iter() {
