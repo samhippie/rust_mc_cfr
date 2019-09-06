@@ -353,12 +353,6 @@ mod tests {
         assert_eq!(actions[0], Action::Pass);
         game.take_turn(player.other(), &Action::Pass);
 
-        //let (p, actions) = game.get_turn();
-        //assert_eq!(p, player);
-        //assert_eq!(actions.len(), 1);
-        //assert_eq!(actions[0], Action::Pass);
-        //game.take_turn(player, &Action::Pass);
-
         //check result of bid
         assert_eq!(player.lens(&game.has_flipped), &true);
         assert_eq!(player.other().lens(&game.has_flipped), &false);
@@ -385,12 +379,6 @@ mod tests {
         assert_eq!(actions[0], Action::Pass);
         game.take_turn(player.other(), &Action::Pass);
 
-        //let (p, actions) = game.get_turn();
-        //assert_eq!(p, player);
-        //assert_eq!(actions.len(), 1);
-        //assert_eq!(actions[0], Action::Pass);
-        //game.take_turn(player, &Action::Pass);
-
         game.get_reward()
     }
 
@@ -415,7 +403,6 @@ mod tests {
             //bid
             game.take_turn(player, &Action::Bid { amount: 2 });
             game.take_turn(player.other(), &Action::Pass);
-            //game.take_turn(player, &Action::Pass);
 
             assert_eq!(player.lens(&game.hands).flowers, 3 - i - 1);
         }
@@ -424,7 +411,6 @@ mod tests {
         game.take_turn(player.other(), &Action::Stack { card: Card::Flower });
         game.take_turn(player, &Action::Bid { amount: 2 });
         game.take_turn(player.other(), &Action::Pass);
-        //game.take_turn(player, &Action::Pass);
 
         game.get_reward()
     }
@@ -473,7 +459,6 @@ mod tests {
             game.take_turn(player, &Action::Bid { amount: 3 });
             game.take_turn(player.other(), &Action::Bid { amount: 4 });
             game.take_turn(player, &Action::Pass);
-            //game.take_turn(player.other(), &Action::Pass);
 
             //other player just barely flipped over their own skull
             assert_eq!(player.other().lens(&game.hands).flowers, 2);
