@@ -50,20 +50,21 @@ fn get_regret_providers(regret_type: RegretType, num: usize, config: &regret::Re
 
 fn do_cfr() {
 
-    let get_game = || game::TicTacToe::new();
+    //let get_game = || game::TicTacToe::new();
     //let get_game = || game::OneCardPoker::new();
-    //let get_game = || game::Skulls::manual_new(game::Player::P1, 1, 1);
+    let get_game = || game::Skulls::manual_new(game::Player::P1, 1, 2);
     //let get_game = || game::MatrixGame::new(2, vec![1.0, 0.9, -0.7, 1.0]);
+    //let get_game = || game::DoubleMatrixGame::new(2, vec![1.0, 0.9, -0.7, 1.0]);
     //let get_game = || game::MatrixGame::new_rock_paper_scissors();
 
     //TODO have a better configuration method
     let num_threads = 16;
-    let num_shards = 3;
+    let num_shards = 1;
     let num_mcts_shards = 8;
     let num_games = 20;
-    let num_steps = 1_000;
-    let step_size = 1_000;
-    let num_exploit_mcts_iterations = 1_000;
+    let num_steps = 100;
+    let step_size = 10000;
+    let num_exploit_mcts_iterations = 100_000_000;
 
     let mut regret_config = regret::RegretConfig { 
         alpha: 1.5, 
@@ -73,8 +74,8 @@ fn do_cfr() {
     };
 
     //TODO shouldn't the regret type go in the regret config?
-    //let regret_types = (RegretType::RocksDb(String::from("regret")), RegretType::RocksDb(String::from("strategy")));
-    let regret_types = (RegretType::HashMap, RegretType::HashMap);
+    let regret_types = (RegretType::RocksDb(String::from("regret")), RegretType::RocksDb(String::from("strategy")));
+    //let regret_types = (RegretType::HashMap, RegretType::HashMap);
 
     let mut regret_providers = get_regret_providers(regret_types.0, num_shards, &regret_config);
     regret_config.is_strategy = true;
@@ -109,9 +110,6 @@ fn do_cfr() {
         });
     }
 
-    //we'd normally run, but I know the sled provider doesn't need to run
-
-
     //training
     let barrier = Arc::new(Barrier::new(cfrs.len()));
     let providers: Arc<Vec<mcts_exploit::StrategyProvider>> = Arc::new(
@@ -127,24 +125,28 @@ fn do_cfr() {
                 //all threads will do the mcts search, but thread 0 will manage everything
                 let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr, providers.clone());
                 for _ in 0..1 {
-                    let exploitability = mcts.run(num_exploit_mcts_iterations);
+                    let (exp1, exp2) = mcts.run(num_exploit_mcts_iterations);
                     if tid == 0 {
-                        println!("exploitability, {}, {}", step, exploitability);
+                        println!("step, exp-p1, exp-p2, exploitability, {}, {}, {}, {}", step, exp1, exp2, exp1 + exp2);
                     }
                 }
+                panic!();
                 */
-                thread_barrier.wait();
+                //thread_barrier.wait();
+                /*
                 if tid == 0 {
                     let mut tree = tree_exploit::TreeExploit::new(Box::new(get_game), &cfr);
                     let rsp_vals = tree.run();
                     println!("step, p1 best response, p2 best reponse, exploitability, {}, {}, {}, {}", step, rsp_vals.0, rsp_vals.1, rsp_vals.0 + rsp_vals.1);
                 }
+                */
                 if tid == 0 {
                     for provider in providers.iter() {
                         provider.clear();
                     }
                     play_cfr_game(&mut get_game(), &cfr);
                 }
+                //thread_barrier.wait();
 
                 for i in 0..step_size {
                     let iteration = step * step_size + i;
@@ -156,10 +158,27 @@ fn do_cfr() {
                     let exp_val = cfr.search(game, 0);
                     if tid == 0 {
                         if let Some(exp_val) = exp_val {
-                            println!("iteration-exp value {}, {}", iteration, exp_val);
+                            //println!("iteration-exp value {}, {}", iteration, exp_val);
                         }
                     }
                 }
+
+                //thread_barrier.wait();
+                //do this first to get a baseline over the default random strategy
+                //all threads will do the mcts search, but thread 0 will manage everything
+                let mut mcts = mcts_exploit::MonteCarloTreeSearch::new(Box::new(get_game), &cfr, providers.clone());
+                if tid == 0 {
+                    mcts.set_verbose(true);
+                }
+                for _ in 0..1 {
+                    let (exp1, exp2) = mcts.run(num_exploit_mcts_iterations);
+                    if tid == 0 {
+                        //println!("step, exp-p1, exp-p2, exploitability, {}, {}, {}, {}", step, exp1, exp2, exp1 + exp2);
+                        panic!();
+                    }
+                }
+                thread_barrier.wait();
+
             }
         })
     }).collect();

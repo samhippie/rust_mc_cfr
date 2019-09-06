@@ -3,6 +3,9 @@ use rand::Rng;
 
 use crate::game::{Game, Player, Infoset};
 
+/// no rng can make some analyses easier, but it's not accurate to the real game
+const FORCE_NO_RNG: bool = false;
+
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum Card {
     Skull,
@@ -51,15 +54,6 @@ pub struct Skulls {
 
 impl Skulls {
     pub fn new() -> Skulls {
-        /*
-        let mut rng = rand::thread_rng();
-        let player = if rng.gen::<bool>() {
-            Player::P1
-        } else {
-            Player::P2
-        };
-        Skulls::manual_new(player)
-        */
         //I think we can get better results if P1 is always first
         Skulls::manual_new(Player::P1, 1, 3)
     }
@@ -148,7 +142,7 @@ impl Game for Skulls {
                         self.history.push(HistoryEntry::Flip(*leader, *player, *card));
                         found_skull = true;
                         let mut hand = leader.lens_mut(&mut self.hands);
-                        if *player == *leader {
+                        if FORCE_NO_RNG || *player == *leader {
                             //remove flowers then skulls
                             if hand.flowers > 0 {
                                 hand.flowers -= 1;
@@ -359,11 +353,11 @@ mod tests {
         assert_eq!(actions[0], Action::Pass);
         game.take_turn(player.other(), &Action::Pass);
 
-        let (p, actions) = game.get_turn();
-        assert_eq!(p, player);
-        assert_eq!(actions.len(), 1);
-        assert_eq!(actions[0], Action::Pass);
-        game.take_turn(player, &Action::Pass);
+        //let (p, actions) = game.get_turn();
+        //assert_eq!(p, player);
+        //assert_eq!(actions.len(), 1);
+        //assert_eq!(actions[0], Action::Pass);
+        //game.take_turn(player, &Action::Pass);
 
         //check result of bid
         assert_eq!(player.lens(&game.has_flipped), &true);
@@ -391,11 +385,11 @@ mod tests {
         assert_eq!(actions[0], Action::Pass);
         game.take_turn(player.other(), &Action::Pass);
 
-        let (p, actions) = game.get_turn();
-        assert_eq!(p, player);
-        assert_eq!(actions.len(), 1);
-        assert_eq!(actions[0], Action::Pass);
-        game.take_turn(player, &Action::Pass);
+        //let (p, actions) = game.get_turn();
+        //assert_eq!(p, player);
+        //assert_eq!(actions.len(), 1);
+        //assert_eq!(actions[0], Action::Pass);
+        //game.take_turn(player, &Action::Pass);
 
         game.get_reward()
     }
@@ -421,7 +415,7 @@ mod tests {
             //bid
             game.take_turn(player, &Action::Bid { amount: 2 });
             game.take_turn(player.other(), &Action::Pass);
-            game.take_turn(player, &Action::Pass);
+            //game.take_turn(player, &Action::Pass);
 
             assert_eq!(player.lens(&game.hands).flowers, 3 - i - 1);
         }
@@ -430,7 +424,7 @@ mod tests {
         game.take_turn(player.other(), &Action::Stack { card: Card::Flower });
         game.take_turn(player, &Action::Bid { amount: 2 });
         game.take_turn(player.other(), &Action::Pass);
-        game.take_turn(player, &Action::Pass);
+        //game.take_turn(player, &Action::Pass);
 
         game.get_reward()
     }
@@ -479,7 +473,7 @@ mod tests {
             game.take_turn(player, &Action::Bid { amount: 3 });
             game.take_turn(player.other(), &Action::Bid { amount: 4 });
             game.take_turn(player, &Action::Pass);
-            game.take_turn(player.other(), &Action::Pass);
+            //game.take_turn(player.other(), &Action::Pass);
 
             //other player just barely flipped over their own skull
             assert_eq!(player.other().lens(&game.hands).flowers, 2);
