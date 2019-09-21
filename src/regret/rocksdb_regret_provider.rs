@@ -17,8 +17,10 @@ impl RocksDbRegretProvider {
 
         RocksDbRegretProvider {
             dbs: (
-                get_db(&format!("/home/sam/data-ssd/{}{}", name, ".p1_db")), 
-                get_db(&format!("/home/sam/data-ssd/{}{}", name, ".p2_db")),
+                //get_db(&format!("/home/sam/data-ssd/{}{}", name, ".p1_db")), 
+                //get_db(&format!("/home/sam/data-ssd/{}{}", name, ".p2_db")),
+                get_db(&format!("data/{}{}", name, ".p1_db")), 
+                get_db(&format!("data/{}{}", name, ".p2_db")),
             ),
             config: RegretConfig::default(),
         } 

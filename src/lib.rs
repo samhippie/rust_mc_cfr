@@ -52,7 +52,7 @@ fn do_cfr() {
 
     //let get_game = || game::TicTacToe::new();
     //let get_game = || game::OneCardPoker::new();
-    let get_game = || game::Skulls::manual_new(game::Player::P1, 1, 2);
+    let get_game = || game::Skulls::manual_new(game::Player::P1, 1, 3);
     //let get_game = || game::MatrixGame::new(2, vec![1.0, 0.9, -0.7, 1.0]);
     //let get_game = || game::DoubleMatrixGame::new(2, vec![1.0, 0.9, -0.7, 1.0]);
     //let get_game = || game::MatrixGame::new_rock_paper_scissors();
@@ -62,9 +62,9 @@ fn do_cfr() {
     let num_shards = 1;
     let num_mcts_shards = 8;
     let num_games = 20;
-    let num_steps = 100;
-    let step_size = 10000;
-    let num_exploit_mcts_iterations = 100_000_000;
+    let num_steps = 10;
+    let step_size = 1000;
+    let num_exploit_mcts_iterations = 100;//_000_000;
 
     let mut regret_config = regret::RegretConfig { 
         alpha: 1.5, 
